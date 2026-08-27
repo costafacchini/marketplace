@@ -1,0 +1,3 @@
+docs/kb/sessions/*.md
+!docs/kb/sessions/.gitkeep
+.claude/settings.local.json

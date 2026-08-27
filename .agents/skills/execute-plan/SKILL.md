@@ -1,0 +1,179 @@
+---
+name: execute-plan
+description: Run all remaining tasks in a plan. Dependency DAG, parallel agent support, wave execution, formal phase gates.
+---
+
+# Execute Plan
+
+## Context Required
+HIGH-CONTEXT: Full plan directory (.plans/{slug}/), AGENTS.md
+
+## Setup
+
+1. Load `.agents/memory/project-profile.md` (always)
+2. Load `.agents/memory/decisions.md` if this skill touches architecture
+3. Check `docs/kb/README.md`; read any matching doc before grepping code
+4. Explore codebase patterns only after steps 1–3
+
+Skip steps not relevant to this skill's scope.
+
+## Triggers
+
+### Automatic
+- None (manual only)
+
+### Manual
+- `/execute-plan`
+- "run the plan", "execute remaining tasks", "run all tasks"
+- "execute the [plan-slug] plan"
+- "continue the plan"
+
+---
+
+## Instructions
+
+> **Before executing a plan with multiple tasks**, run `./scripts/wave-planner <slug>` to
+> identify which tasks can run in parallel. Tasks within the same wave have no mutual
+> dependencies and may be executed concurrently with agent teams. The output is also
+> written to `.plans/<slug>/waves.json` when the `--json` flag is passed.
+
+### Step 1: Load Plan State
+
+**Pre-check — plan must be merged into `main`**:
+
+```bash
+git fetch origin
+git show origin/main:.plans/{plan-slug}/overview.md > /dev/null 2>&1
+```
+
+If this command fails, the plan branch has not been merged. Stop and instruct the user:
+
+> "Plan `{plan-slug}` is not yet in `main`. Merge the `plan/{plan-slug}` PR first, then re-run `/execute-plan {plan-slug}`."
+
+1. Read `.plans/{plan-slug}/overview.md` for phases and dependencies
+2. Read ALL `status.md` files to build current state map
+3. Categorize each task: `complete`/`adapted` (skip), `in-progress` (monitor, do not re-schedule), `blocked` (wait), `ready` (execute)
+4. Detect directory layout: flat (`task-NN-slug/`) or phased (`phase-N/task-NN-slug/`)
+5. Before scheduling any ready task, verify its `task.md` still has explicit `Testing` and `Documentation / KB Updates` sections. If either is missing or too vague to execute, tighten the task definition before implementation starts.
+
+A task is **ready** when:
+- Status is `not-started` or `blocked` (with blockers now resolved)
+- All tasks in its "Depends On" list are `complete` or `adapted`
+
+**Sizing check**: If plan has >15 tasks or >4 phases, warn and suggest splitting.
+
+### Step 2: Build Execution Waves
+
+Group ready tasks into waves based on the dependency DAG:
+
+- **Wave 1**: All currently ready tasks (no unmet dependencies)
+- **Wave 2**: Tasks that become ready after Wave 1 completes
+- **Wave N**: Continue until all tasks are scheduled
+
+Present the execution plan to the user:
+```text
+Execution Plan for: {plan-slug}
+================================
+Completed: task-01, task-02 (skipping)
+Wave 1: task-03, task-04 (parallel)
+Wave 2: task-05 (depends on Wave 1)
+Blocked: task-06 (external dependency)
+================================
+Proceed? (y/n)
+```
+
+### Step 3: Execute Wave (Sequential — Default)
+
+For each wave, execute tasks one at a time:
+
+1. Execute each ready task via `execute-task`
+2. After each task, re-read status files to check for newly unblocked tasks
+3. Continue until wave is complete
+
+> **Claude Code Enhancement (optional)**: If the tool supports parallel agent execution, tasks within the same wave (no cross-dependencies) can be run concurrently — one agent per task, each in its own worktree. Right-size to 3-5 agents per wave. This is optional; the sequential path above is always sufficient.
+
+### Step 4: Execute Wave (Parallel Agent Teams — Optional)
+
+If the tool supports parallel agent execution and the user opts in:
+
+1. Spawn one agent per ready task in the wave (right-size to 3-5 per wave)
+2. Each agent runs `execute-task` for its assigned task in its own worktree
+3. Monitor progress via task status updates
+4. Wait for all agents in the wave to complete before advancing
+
+### Step 5: Handle Blockers
+
+If a task is blocked:
+- Present blocker details to the user
+- Offer options: skip (mark as adapted), resolve manually, or abort plan
+- If resolved, re-check the DAG and continue
+
+### Step 6: Phase Gate Verification
+
+After each wave/phase completes, verify before proceeding:
+
+1. All Phase N tasks are `complete` or `adapted`
+2. **Spec scenario coverage**: For each task in this phase, all acceptance scenarios listed under its `Spec References` field must have passing tests — no pending/skipped stubs may remain. If a stub was intentionally left pending, document why in `status.md`.
+3. Required tests / verification for the completed tasks were added and run, or any intentional gaps are explicitly documented and approved
+4. CI is green for the completed work (or any failures are understood/flaky)
+5. No tasks required for the current phase or next ready wave remain `blocked`
+6. Contracts are still accurate (for cross-repo plans)
+7. Required KB / documentation updates for the completed tasks are merged or explicitly tracked before the next wave starts
+8. Any PR/review/merge follow-up is tracked and reported before the next wave starts; merge timing itself is not a gate unless the plan explicitly depends on it
+9. If the plan is GTM-flagged, verify each PR in the wave includes `GTM Plan: <plan-slug>` in the body and the `gtm-ship` label (apply via `gh` when available)
+
+If any gate check fails, report the issue and wait for resolution.
+
+### Step 7: Cross-Repo Coordination
+
+For cross-repo plans:
+- In a dedicated planning worktree, sync the planning branch (fetch + fast-forward/rebase) before updating `status.md` between waves
+- Verify contract status (Draft/Frozen/Deprecated) is appropriate for the current phase
+- Note cross-repo dependencies in wave presentation
+
+### Step 8: Post-Wave PR (Strategy-Driven)
+
+Read `PR Strategy` from `overview.md`:
+
+- **`per-task`**: PRs were already opened by each task. No action here.
+- **`per-wave`**: After the wave's phase gate passes, open one PR targeting `{base-branch}` that covers all task branches in the wave. Run integration tests across the combined changes before opening.
+- **`single`**: No PR yet — push only. Continue to the next wave.
+
+### Step 9: Plan Completion
+
+When all tasks are `complete` or `adapted` (or remaining are blocked and unresolvable):
+
+1. **Verify spec success criteria**: Read `spec.md` SC-XXX items. For each, confirm the outcome is met or document why it was adapted/deferred.
+2. Update `.plans/{plan-slug}/overview.md` status to `complete`
+3. Move the plan from Active to Completed table in `.plans/README.md`
+4. Clean up worktrees (if parallel execution was used in Step 4):
+   - For each task worktree created during this plan:
+     `git worktree remove .worktrees/{plan-slug}/{task-path} --force`
+   - Verify: `git worktree list`
+5. **`single` PR strategy**: Open one final PR targeting `{base-branch}` that covers all task branches. Run the full test suite before opening.
+6. Report summary:
+   - Total tasks completed vs adapted vs blocked
+   - List of branches created
+   - Test / verification and KB/doc follow-up status
+   - PR(s) created (or link to open PRs for `per-task`)
+
+## Output
+
+- All plan tasks executed (or blocked with explanations)
+- Status files updated for every task
+- Phase gate verifications passed
+- Plan overview and index updated
+- Summary report with branch list and completion stats
+
+## Examples
+
+User: "/execute-plan user-auth"
+
+Agent:
+1. Reads plan: 6 tasks, 3 phases. Tasks 01-02 already complete.
+2. Builds waves: Wave 1 = [task-03, task-04], Wave 2 = [task-05, task-06]
+3. Presents: "2 waves remaining. Wave 1 has 2 parallel tasks. Proceed?"
+4. User confirms → spawns 2 agents for task-03 and task-04
+5. Both complete → runs phase gate: CI green, no blockers, follow-up review/merge work tracked
+6. Presents Wave 2 → executes task-05 and task-06
+7. All complete → updates overview to "complete", reports summary

@@ -1,0 +1,25 @@
+{
+  "hooks": [
+    {
+      "name": "security-gate",
+      "description": "Blocks force pushes to protected branches, destructive rm, and hardcoded secrets",
+      "event": "PreToolUse",
+      "command": "bash .claude/hooks/pre-tool-use.sh",
+      "enabled_by_default": true
+    },
+    {
+      "name": "audit-log",
+      "description": "Appends file writes and notable Bash ops to .ai-memory/audit/ (local only, never committed)",
+      "event": "PostToolUse",
+      "command": "bash .claude/hooks/post-tool-use.sh",
+      "enabled_by_default": true
+    },
+    {
+      "name": "pre-commit-gate",
+      "description": "Scans staged files for debug artifacts (console.log, debugger, binding.pry, etc.) before git commit",
+      "event": "PreToolUse",
+      "command": "bash .claude/hooks/pre-commit-gate.sh",
+      "enabled_by_default": false
+    }
+  ]
+}
