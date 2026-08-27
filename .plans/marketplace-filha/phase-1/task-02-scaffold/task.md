@@ -1,0 +1,241 @@
+# Task: Project Scaffold + Prisma Schema
+
+**Plan**: marketplace-filha
+**Phase**: 1
+**Task ID (phase-local)**: task-02
+**Task Path**: phase-1/task-02-scaffold
+**Spec References**: FR-009 (Decimal price), all stories (foundational)
+**Depends On**: phase-0/task-01-sdd
+**JIRA**: N/A
+
+## Objective
+
+Initialize the Next.js 14 App Router project, install and configure all dependencies (Prisma, shadcn/ui, Tailwind, NextAuth, Zustand), define the Prisma schema with the `Product` model and `Category` enum, and run the initial database migration.
+
+## Context
+
+Reference `docs/sdd.md` sections 2 (Architecture), 3 (Data Model), 9 (Component Hierarchy), 10 (Deployment), and 11 (Environment Variables) before starting.
+
+This task creates the skeleton all other tasks build on. It must:
+- Use **Next.js 14 App Router** (not Pages Router)
+- Use **TypeScript** throughout
+- Configure **Tailwind CSS** and initialize **shadcn/ui**
+- Install **Prisma** and define the schema from `spec.md`
+- Create `.env.example` with all variables from the SDD
+- NOT implement any features — only scaffold and schema
+
+Database migration runs locally against a dev PostgreSQL instance. Production migration (`prisma migrate deploy`) is documented in task-10-deploy.
+
+## Before You Start
+
+- [ ] `git switch main && git pull --rebase origin main`
+- [ ] Confirm `phase-0/task-01-sdd` status is `complete` — read `docs/sdd.md`
+- [ ] Ensure Node.js ≥ 18 and `npm` are available locally
+- [ ] Ensure a local PostgreSQL instance is running for dev migration
+- [ ] Mark this task `in-progress` in `status.md` before proceeding
+
+## File Ownership
+
+| File | Action | Notes |
+|------|--------|-------|
+| `package.json` | create | All project dependencies |
+| `next.config.ts` | create | Next.js config (image domains: res.cloudinary.com) |
+| `tsconfig.json` | create | TypeScript config |
+| `tailwind.config.ts` | create | Tailwind config with shadcn/ui preset |
+| `postcss.config.mjs` | create | PostCSS config |
+| `prisma/schema.prisma` | create | Product model + Category enum |
+| `.env.example` | create | All env vars documented, no real values |
+| `.env.local` | create | Dev env (gitignored) |
+| `lib/prisma.ts` | create | Prisma client singleton |
+| `app/layout.tsx` | create | Root layout |
+| `app/globals.css` | create | Tailwind directives |
+| `components/ui/` | create | shadcn/ui primitive installs (button, card, badge, input, label, tabs, dialog) |
+| `CLAUDE.md` | modify | Add test/lint/dev commands to Key commands section |
+
+### Do NOT Modify
+
+No sibling tasks in this phase.
+
+## Implementation Steps
+
+### Step 1: Initialize Next.js 14 Project
+
+```bash
+npx create-next-app@latest . \
+  --typescript \
+  --tailwind \
+  --eslint \
+  --app \
+  --src-dir=false \
+  --import-alias="@/*"
+```
+
+### Step 2: Install Dependencies
+
+Look up current versions before installing:
+```bash
+npm show prisma version
+npm show @prisma/client version
+npm show next-auth version
+npm show zustand version
+npm show bcryptjs version
+npm show @types/bcryptjs version
+npm show zod version
+npm show react-hook-form version
+npm show @hookform/resolvers version
+```
+
+Then install:
+```bash
+npm install prisma @prisma/client next-auth zustand bcryptjs zod react-hook-form @hookform/resolvers
+npm install -D @types/bcryptjs
+```
+
+### Step 3: Initialize Prisma
+
+```bash
+npx prisma init --datasource-provider postgresql
+```
+
+### Step 4: Write prisma/schema.prisma
+
+```prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  price       Decimal   @db.Decimal(10, 2)
+  category    Category
+  sizes       String[]
+  images      String[]
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum Category {
+  CLOTHES
+  LINGERIE
+  WORKOUT
+}
+```
+
+### Step 5: Initialize shadcn/ui
+
+```bash
+npx shadcn@latest init
+```
+Accept defaults (New York style, Zinc color, CSS variables).
+
+Then install required components:
+```bash
+npx shadcn@latest add button card badge input label tabs dialog select switch
+```
+
+### Step 6: Create lib/prisma.ts (Singleton)
+
+```typescript
+import { PrismaClient } from '@prisma/client'
+
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
+
+export const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({ log: ['error'] })
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+```
+
+### Step 7: Create .env.example
+
+Document all variables from SDD section 11:
+```env
+# Database (Railway PostgreSQL)
+DATABASE_URL="postgresql://user:password@host:5432/dbname?connection_limit=1&pool_timeout=10"
+
+# NextAuth
+NEXTAUTH_SECRET=""        # openssl rand -base64 32
+NEXTAUTH_URL="http://localhost:3000"
+
+# Cloudinary
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=""
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=""  # unsigned preset name
+
+# Admin credentials
+ADMIN_EMAIL=""
+ADMIN_PASSWORD_HASH=""    # bcryptjs.hashSync('password', 12)
+
+# WhatsApp
+NEXT_PUBLIC_WHATSAPP_NUMBER=""  # format: 5511999999999
+```
+
+### Step 8: Configure next.config.ts
+
+Enable Cloudinary image domain:
+```typescript
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+    ],
+  },
+}
+```
+
+### Step 9: Run Initial Migration
+
+```bash
+npx prisma migrate dev --name init
+npx prisma generate
+```
+
+### Step 10: Update CLAUDE.md Key Commands
+
+Add to the project CLAUDE.md:
+```
+# [npm run dev]          # Dev server (localhost:3000)
+# [npm test]             # Run tests
+# [npm run lint]         # ESLint
+# [npx prisma studio]    # Browse database
+# [npx prisma migrate dev]  # Run DB migrations
+```
+
+## Testing
+
+**Spec scenarios covered**: N/A — this task is scaffold only; no user-facing scenarios yet.
+
+**Additional verification**:
+- [ ] `npm run dev` starts without errors on port 3000
+- [ ] `npx prisma migrate dev` completes successfully (migration file created)
+- [ ] `npx prisma generate` completes without errors
+- [ ] `npm run build` completes without TypeScript errors
+- [ ] `npm run lint` passes with no errors
+- [ ] All shadcn/ui components installed are importable without errors
+
+## Documentation / KB Updates
+
+- [ ] Update `CLAUDE.md` with dev/test/lint commands
+- [ ] No new KB doc needed — SDD (task-01) already covers the stack
+- [ ] If any dependency version decision is non-obvious, note it in `docs/kb/architecture/project-overview.md`
+
+## Completion Criteria
+
+- [ ] `prisma/schema.prisma` matches spec exactly
+- [ ] `npx prisma migrate dev --name init` ran successfully
+- [ ] `.env.example` documents all required variables
+- [ ] `npm run dev` launches Next.js 14 dev server without errors
+- [ ] shadcn/ui primitives are installed and importable
+- [ ] Changes committed to `plan/marketplace-filha/phase-1/task-02-scaffold` branch
+- [ ] Status updated in `status.md`
