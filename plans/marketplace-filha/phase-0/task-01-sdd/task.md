@@ -14,7 +14,7 @@ Author `docs/sdd.md` — a comprehensive Software Design Document covering syste
 
 ## Context
 
-This is a greenfield Next.js 14 project. No existing codebase to reference. The source of truth is `spec.md` at the repository root and the plan spec at `.plans/marketplace-filha/spec.md`. The SDD output (`docs/sdd.md`) becomes the authoritative reference for all subsequent implementation tasks — each task in phases 1–5 will link back to it.
+This is a greenfield Next.js 14 project. No existing codebase to reference. The source of truth is `spec.md` at the repository root and the plan spec at `plans/marketplace-filha/spec.md`. The SDD output (`docs/sdd.md`) becomes the authoritative reference for all subsequent implementation tasks — each task in phases 1–5 will link back to it.
 
 Architecture decisions recorded in this SDD must be consistent with the technical decisions already stated in `spec.md`:
 - Next.js 14 App Router (not Pages Router)
@@ -28,7 +28,7 @@ Architecture decisions recorded in this SDD must be consistent with the technica
 
 - [ ] Switch to base branch and pull: `git switch main && git pull --rebase origin main`
 - [ ] Read `spec.md` (root) in full
-- [ ] Read `.plans/marketplace-filha/spec.md` in full
+- [ ] Read `plans/marketplace-filha/spec.md` in full
 - [ ] Mark this task `in-progress` in `status.md` before proceeding
 
 ## File Ownership
@@ -41,7 +41,7 @@ Architecture decisions recorded in this SDD must be consistent with the technica
 ### Do NOT Modify
 
 - Any source code files — this task is documentation only
-- `.plans/marketplace-filha/spec.md` — spec is finalized
+- `plans/marketplace-filha/spec.md` — spec is finalized
 
 ## Implementation Steps
 

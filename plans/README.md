@@ -3,7 +3,7 @@
 Git-native Markdown plans for multi-step work.
 
 ```
-.plans/
+plans/
 +-- feature-name/
     +-- overview.md      # Task table, dependencies, ownership
 ```
