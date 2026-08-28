@@ -6,6 +6,23 @@
     "cancel": "Cancelar",
     "back": "Voltar"
   },
+  "store": {
+    "name": "Small Business Seller",
+    "cart": "Carrinho",
+    "filter": {
+      "all": "Todos",
+      "clothes": "Roupas",
+      "lingerie": "Íntimas",
+      "workout": "Academia",
+      "empty": "Nenhum produto nesta categoria."
+    },
+    "sort": {
+      "label": "Ordenar por",
+      "promoFirst": "Promoções primeiro",
+      "priceAsc": "Menor preço",
+      "nameAsc": "A–Z"
+    }
+  },
   "admin": {
     "login": {
       "title": "Login Administrativo",
