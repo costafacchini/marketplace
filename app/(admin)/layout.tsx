@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
@@ -16,7 +17,15 @@ export default async function AdminLayout({
     <SessionProvider>
       <div className="min-h-screen flex flex-col">
         {session && (
-          <header className="border-b px-6 py-3 flex justify-end">
+          <header className="border-b px-6 py-3 flex items-center justify-between">
+            <nav className="flex items-center gap-4">
+              <Link href="/admin" className="text-sm font-medium hover:underline">
+                Admin
+              </Link>
+              <Link href="/admin/price-lists" className="text-sm font-medium hover:underline">
+                {t('admin.priceLists.nav')}
+              </Link>
+            </nav>
             <SignOutButton label={t('admin.login.signOut')} />
           </header>
         )}

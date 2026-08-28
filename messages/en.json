@@ -6,6 +6,29 @@
     "cancel": "Cancel",
     "back": "Back"
   },
+  "store": {
+    "name": "Small Business Seller",
+    "cart": "Cart",
+    "filter": {
+      "all": "All",
+      "clothes": "Clothes",
+      "lingerie": "Lingerie",
+      "workout": "Workout",
+      "empty": "No products in this category."
+    },
+    "sort": {
+      "label": "Sort by",
+      "promoFirst": "Promotions first",
+      "priceAsc": "Lowest price",
+      "nameAsc": "A–Z"
+    },
+    "product": {
+      "selectSize": "Select a size",
+      "sizeRequired": "Please select a size.",
+      "addToCart": "Add to Cart",
+      "added": "Added!"
+    }
+  },
   "admin": {
     "login": {
       "title": "Admin Login",
@@ -15,6 +38,60 @@
       "submitting": "Signing in...",
       "invalidCredentials": "Invalid email or password.",
       "signOut": "Sign out"
+    },
+    "products": {
+      "title": "Products",
+      "newProduct": "+ New Product",
+      "table": {
+        "name": "Name",
+        "category": "Category",
+        "price": "Price",
+        "status": "Status",
+        "actions": "Actions",
+        "edit": "Edit"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "category": {
+        "clothes": "Clothes",
+        "lingerie": "Lingerie",
+        "workout": "Workout"
+      }
+    },
+    "priceLists": {
+      "title": "Price Lists",
+      "new": "+ New Price List",
+      "nav": "Price Lists",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "expired": "Expired",
+        "scheduled": "Scheduled"
+      },
+      "table": {
+        "name": "Name",
+        "discount": "Discount",
+        "starts": "Starts",
+        "expires": "Expires",
+        "status": "Status",
+        "actions": "Actions",
+        "edit": "Edit"
+      },
+      "form": {
+        "name": "Name",
+        "discountPct": "Discount %",
+        "startsAt": "Starts at",
+        "expiresAt": "Expires at",
+        "active": "Active",
+        "categories": "Categories",
+        "products": "Specific products (optional)",
+        "overridePct": "Override %",
+        "save": "Save",
+        "saving": "Saving...",
+        "dateError": "Expiry must be after start date."
+      }
     }
   }
 }

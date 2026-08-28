@@ -6,6 +6,29 @@
     "cancel": "Cancelar",
     "back": "Voltar"
   },
+  "store": {
+    "name": "Small Business Seller",
+    "cart": "Carrinho",
+    "filter": {
+      "all": "Todos",
+      "clothes": "Roupas",
+      "lingerie": "Íntimas",
+      "workout": "Academia",
+      "empty": "Nenhum produto nesta categoria."
+    },
+    "sort": {
+      "label": "Ordenar por",
+      "promoFirst": "Promoções primeiro",
+      "priceAsc": "Menor preço",
+      "nameAsc": "A–Z"
+    },
+    "product": {
+      "selectSize": "Selecione um tamanho",
+      "sizeRequired": "Selecione um tamanho.",
+      "addToCart": "Adicionar ao Carrinho",
+      "added": "Adicionado!"
+    }
+  },
   "admin": {
     "login": {
       "title": "Login Administrativo",
@@ -15,6 +38,60 @@
       "submitting": "Entrando...",
       "invalidCredentials": "E-mail ou senha inválidos.",
       "signOut": "Sair"
+    },
+    "products": {
+      "title": "Produtos",
+      "newProduct": "+ Novo Produto",
+      "table": {
+        "name": "Nome",
+        "category": "Categoria",
+        "price": "Preço",
+        "status": "Status",
+        "actions": "Ações",
+        "edit": "Editar"
+      },
+      "status": {
+        "active": "Ativo",
+        "inactive": "Inativo"
+      },
+      "category": {
+        "clothes": "Roupas",
+        "lingerie": "Íntimas",
+        "workout": "Academia"
+      }
+    },
+    "priceLists": {
+      "title": "Listas de Preços",
+      "new": "+ Nova Lista",
+      "nav": "Listas de Preços",
+      "status": {
+        "active": "Ativa",
+        "inactive": "Inativa",
+        "expired": "Expirada",
+        "scheduled": "Agendada"
+      },
+      "table": {
+        "name": "Nome",
+        "discount": "Desconto",
+        "starts": "Início",
+        "expires": "Expiração",
+        "status": "Status",
+        "actions": "Ações",
+        "edit": "Editar"
+      },
+      "form": {
+        "name": "Nome",
+        "discountPct": "Desconto %",
+        "startsAt": "Início",
+        "expiresAt": "Expiração",
+        "active": "Ativo",
+        "categories": "Categorias",
+        "products": "Produtos específicos (opcional)",
+        "overridePct": "Desconto %",
+        "save": "Salvar",
+        "saving": "Salvando...",
+        "dateError": "A expiracao deve ser após o inicio."
+      }
     }
   }
 }
