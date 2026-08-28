@@ -32,6 +32,27 @@
       "submitting": "Signing in...",
       "invalidCredentials": "Invalid email or password.",
       "signOut": "Sign out"
+    },
+    "products": {
+      "title": "Products",
+      "newProduct": "+ New Product",
+      "table": {
+        "name": "Name",
+        "category": "Category",
+        "price": "Price",
+        "status": "Status",
+        "actions": "Actions",
+        "edit": "Edit"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "category": {
+        "clothes": "Clothes",
+        "lingerie": "Lingerie",
+        "workout": "Workout"
+      }
     }
   },
   "store": {

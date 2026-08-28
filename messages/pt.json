@@ -32,6 +32,27 @@
       "submitting": "Entrando...",
       "invalidCredentials": "E-mail ou senha inválidos.",
       "signOut": "Sair"
+    },
+    "products": {
+      "title": "Produtos",
+      "newProduct": "+ Novo Produto",
+      "table": {
+        "name": "Nome",
+        "category": "Categoria",
+        "price": "Preço",
+        "status": "Status",
+        "actions": "Ações",
+        "edit": "Editar"
+      },
+      "status": {
+        "active": "Ativo",
+        "inactive": "Inativo"
+      },
+      "category": {
+        "clothes": "Roupas",
+        "lingerie": "Íntimas",
+        "workout": "Academia"
+      }
     }
   },
   "store": {
