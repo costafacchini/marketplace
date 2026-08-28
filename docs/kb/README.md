@@ -16,7 +16,9 @@ Load ONLY documents relevant to your current task.
 
 | Document | When to Read |
 |----------|--------------|
-| <!-- Add entries as you create KB docs --> | |
+| [project-overview](architecture/project-overview.md) | Every session start — stack, commands, key decisions |
+| [project-context-pre-setup](architecture/project-context-pre-setup.md) | Historical context before framework setup (2026-08-27) |
+| [nested-agents-md](architecture/nested-agents-md.md) | When scoping AGENTS.md to subdirectories |
 
 ### Features
 
