@@ -14,3 +14,5 @@ export const productUpdateSchema = productCreateSchema.partial()
 
 export type ProductCreateInput = z.infer<typeof productCreateSchema>
 export type ProductUpdateInput = z.infer<typeof productUpdateSchema>
+// Form values use zod's input type (before defaults are applied) to match zodResolver's expected TFieldValues
+export type ProductFormValues = z.input<typeof productCreateSchema>
