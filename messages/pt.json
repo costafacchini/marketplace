@@ -21,6 +21,12 @@
       "promoFirst": "Promoções primeiro",
       "priceAsc": "Menor preço",
       "nameAsc": "A–Z"
+    },
+    "product": {
+      "selectSize": "Selecione um tamanho",
+      "sizeRequired": "Selecione um tamanho.",
+      "addToCart": "Adicionar ao Carrinho",
+      "added": "Adicionado!"
     }
   },
   "admin": {
@@ -53,14 +59,39 @@
         "lingerie": "Íntimas",
         "workout": "Academia"
       }
-    }
-  },
-  "store": {
-    "product": {
-      "selectSize": "Selecione um tamanho",
-      "sizeRequired": "Selecione um tamanho.",
-      "addToCart": "Adicionar ao Carrinho",
-      "added": "Adicionado!"
+    },
+    "priceLists": {
+      "title": "Listas de Preços",
+      "new": "+ Nova Lista",
+      "nav": "Listas de Preços",
+      "status": {
+        "active": "Ativa",
+        "inactive": "Inativa",
+        "expired": "Expirada",
+        "scheduled": "Agendada"
+      },
+      "table": {
+        "name": "Nome",
+        "discount": "Desconto",
+        "starts": "Início",
+        "expires": "Expiração",
+        "status": "Status",
+        "actions": "Ações",
+        "edit": "Editar"
+      },
+      "form": {
+        "name": "Nome",
+        "discountPct": "Desconto %",
+        "startsAt": "Início",
+        "expiresAt": "Expiração",
+        "active": "Ativo",
+        "categories": "Categorias",
+        "products": "Produtos específicos (opcional)",
+        "overridePct": "Desconto %",
+        "save": "Salvar",
+        "saving": "Salvando...",
+        "dateError": "A expiracao deve ser após o inicio."
+      }
     }
   }
 }

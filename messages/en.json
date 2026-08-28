@@ -21,6 +21,12 @@
       "promoFirst": "Promotions first",
       "priceAsc": "Lowest price",
       "nameAsc": "A–Z"
+    },
+    "product": {
+      "selectSize": "Select a size",
+      "sizeRequired": "Please select a size.",
+      "addToCart": "Add to Cart",
+      "added": "Added!"
     }
   },
   "admin": {
@@ -53,14 +59,39 @@
         "lingerie": "Lingerie",
         "workout": "Workout"
       }
-    }
-  },
-  "store": {
-    "product": {
-      "selectSize": "Select a size",
-      "sizeRequired": "Please select a size.",
-      "addToCart": "Add to Cart",
-      "added": "Added!"
+    },
+    "priceLists": {
+      "title": "Price Lists",
+      "new": "+ New Price List",
+      "nav": "Price Lists",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "expired": "Expired",
+        "scheduled": "Scheduled"
+      },
+      "table": {
+        "name": "Name",
+        "discount": "Discount",
+        "starts": "Starts",
+        "expires": "Expires",
+        "status": "Status",
+        "actions": "Actions",
+        "edit": "Edit"
+      },
+      "form": {
+        "name": "Name",
+        "discountPct": "Discount %",
+        "startsAt": "Starts at",
+        "expiresAt": "Expires at",
+        "active": "Active",
+        "categories": "Categories",
+        "products": "Specific products (optional)",
+        "overridePct": "Override %",
+        "save": "Save",
+        "saving": "Saving...",
+        "dateError": "Expiry must be after start date."
+      }
     }
   }
 }
