@@ -16,32 +16,37 @@ model Product {
   images         String[]
   active         Boolean         @default(true)
   priceListItems PriceListItem[]
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt      @map("updated_at")
+
+  @@map("products")
 }
 
 model PriceList {
   id          String          @id @default(cuid())
   name        String
-  discountPct Decimal         @db.Decimal(5, 2)
-  startsAt    DateTime
-  expiresAt   DateTime
+  discountPct Decimal         @db.Decimal(5, 2) @map("discount_pct")
+  startsAt    DateTime                           @map("starts_at")
+  expiresAt   DateTime                           @map("expires_at")
   active      Boolean         @default(true)
   categories  Category[]
   items       PriceListItem[]
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+  createdAt   DateTime        @default(now())   @map("created_at")
+  updatedAt   DateTime        @updatedAt        @map("updated_at")
+
+  @@map("price_lists")
 }
 
 model PriceListItem {
   id          String    @id @default(cuid())
   priceList   PriceList @relation(fields: [priceListId], references: [id], onDelete: Cascade)
-  priceListId String
+  priceListId String                             @map("price_list_id")
   product     Product   @relation(fields: [productId], references: [id])
-  productId   String
-  discountPct Decimal?  @db.Decimal(5, 2)
+  productId   String                             @map("product_id")
+  discountPct Decimal?  @db.Decimal(5, 2)       @map("discount_pct")
 
   @@unique([priceListId, productId])
+  @@map("price_list_items")
 }
 
 enum Category {
