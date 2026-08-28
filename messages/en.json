@@ -15,6 +15,39 @@
       "submitting": "Signing in...",
       "invalidCredentials": "Invalid email or password.",
       "signOut": "Sign out"
+    },
+    "priceLists": {
+      "title": "Price Lists",
+      "new": "+ New Price List",
+      "nav": "Price Lists",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "expired": "Expired",
+        "scheduled": "Scheduled"
+      },
+      "table": {
+        "name": "Name",
+        "discount": "Discount",
+        "starts": "Starts",
+        "expires": "Expires",
+        "status": "Status",
+        "actions": "Actions",
+        "edit": "Edit"
+      },
+      "form": {
+        "name": "Name",
+        "discountPct": "Discount %",
+        "startsAt": "Starts at",
+        "expiresAt": "Expires at",
+        "active": "Active",
+        "categories": "Categories",
+        "products": "Specific products (optional)",
+        "overridePct": "Override %",
+        "save": "Save",
+        "saving": "Saving...",
+        "dateError": "Expiry must be after start date."
+      }
     }
   }
 }
