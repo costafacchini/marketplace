@@ -5,7 +5,7 @@
 **Last Updated**: 2026-08-27
 **Assigned Dev**: Alan Costa Facchini
 **PR Strategy**: per-wave
-**Spec**: [spec.md](spec.md) — 7 user stories · 35 acceptance scenarios · 9 success criteria
+**Spec**: [spec.md](spec.md) — 7 user stories · 39 acceptance scenarios · 9 success criteria
 
 ## Objective
 

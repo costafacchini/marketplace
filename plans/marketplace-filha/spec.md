@@ -24,6 +24,9 @@ A customer visits the store, sees all active products, and can filter by categor
 3. **Given** the customer is on the homepage, **When** they click "Íntimas", **Then** only `LINGERIE` products appear.
 4. **Given** the customer is on the homepage, **When** they click "Academia", **Then** only `WORKOUT` products appear.
 5. **Given** a category has no active products, **When** the customer selects that filter, **Then** an empty-state message is displayed and no product cards are rendered.
+6. **Given** the customer selects "Menor preço" in the sort control, **When** applied, **Then** products are reordered from lowest to highest price (using promotional price when active).
+7. **Given** the customer selects "Promoções primeiro" in the sort control, **When** applied, **Then** products with a promotional price appear at the top of the grid, followed by full-price products.
+8. **Given** the customer selects "A–Z" in the sort control, **When** applied, **Then** products are reordered alphabetically by name.
 
 ---
 
@@ -129,7 +132,7 @@ When a price list is active and covers a product (by category or individually), 
 
 **Acceptance Scenarios**:
 
-1. **Given** an active price list covers the CLOTHES category with 20% off, **When** the customer views the vitrine, **Then** CLOTHES products display the discounted price and the original price struck through.
+1. **Given** an active price list covers the CLOTHES category with 20% off, **When** the customer views the vitrine, **Then** CLOTHES product cards display: a "20% OFF" badge overlaid on the product image, the discounted price prominently, and the original price struck through.
 2. **Given** a product has an individual entry in a price list AND its category also appears in the same list, **When** the price is computed, **Then** the product-level discount is applied (product-level overrides category-level).
 3. **Given** two active price lists both cover the same product, **When** the price is computed, **Then** the discount from the most recently created list is applied.
 4. **Given** a price list whose `expiresAt` is in the past, **When** the customer views an affected product, **Then** the original price is shown (no discount).
@@ -178,6 +181,7 @@ The seller creates and manages price lists: each list has a name, a percentage d
 - **FR-018**: A `PriceList` MUST have: `name`, `discountPct` (Decimal 0–100), `startsAt` (DateTime), `expiresAt` (DateTime), `active` (Boolean), optional `categories` (Category[]), and optional `items` (PriceListItem[]).
 - **FR-019**: `PriceListItem` MAY carry an individual `discountPct` override (Decimal 0–100, optional); if null, the parent list's `discountPct` is used.
 - **FR-020**: Admin MUST be able to create, edit, and deactivate price lists. No hard-delete — use `active = false`.
+- **FR-021**: The vitrine MUST offer a sort control with options: "Menor preço" (price asc, using promotional price), "Promoções primeiro" (promotional products first), and "A–Z" (alphabetical). Sorting is client-side and combines with the active category filter.
 
 ---
 
