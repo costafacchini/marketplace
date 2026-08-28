@@ -4,7 +4,7 @@
 **Phase**: 3
 **Task ID (phase-local)**: task-05
 **Task Path**: phase-3/task-05-store-vitrine
-**Spec References**: Story 1 (P1) — all 5 scenarios, FR-001, FR-002, SC-001, SC-003
+**Spec References**: Story 1 (P1) — all 5 scenarios, FR-001, FR-002, FR-013, SC-001, SC-003, SC-007
 **Depends On**: phase-2/task-04-api-products
 **JIRA**: N/A
 
@@ -115,7 +115,7 @@ export function CategoryFilter({ products }) {
 
 ### Step 4: Create components/store/ProductGrid.tsx
 
-Responsive grid (`grid-cols-2 md:grid-cols-3 lg:grid-cols-4`). Renders empty-state message when `products.length === 0`.
+Mobile-first grid: `grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`. The 2-column layout is the default (smallest screens); wider grids kick in at `sm:` and `lg:`. Renders empty-state message when `products.length === 0`.
 
 ### Step 5: Create components/store/ProductCard.tsx
 
@@ -123,6 +123,8 @@ Responsive grid (`grid-cols-2 md:grid-cols-3 lg:grid-cols-4`). Renders empty-sta
 - Full card is a `<Link href={/products/${id}}>` (not just the title)
 - Use shadcn/ui `Card` component
 - Truncate long names with `line-clamp-2`
+- Image aspect ratio: `aspect-square` — prevents layout shift on mobile
+- Card min tap area: ensure the full card is clickable (no padding-only zone)
 
 ### Step 6: Format Prices
 
@@ -148,6 +150,8 @@ Test stubs at `__tests__/store/vitrine.test.tsx`:
 - [ ] `ProductCard` links correctly to `/products/[id]`
 - [ ] Price is formatted as `R$ X,XX` (not raw Decimal string)
 - [ ] Page is accessible without authentication
+- [ ] SC-007: No horizontal scroll on 375px viewport (Chrome DevTools mobile emulation)
+- [ ] Category filter tabs are scrollable horizontally on small screens if they overflow (use `overflow-x-auto` on `TabsList`)
 
 ## Documentation / KB Updates
 

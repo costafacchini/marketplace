@@ -4,7 +4,7 @@
 **Phase**: 3
 **Task ID (phase-local)**: task-07
 **Task Path**: phase-3/task-07-cart
-**Spec References**: Story 3 (P1) — all 5 scenarios, FR-003, FR-004, FR-010, SC-001, SC-004
+**Spec References**: Story 3 (P1) — all 5 scenarios, FR-003, FR-004, FR-010, FR-013, SC-001, SC-004, SC-007
 **Depends On**: phase-3/task-06-product-detail
 **JIRA**: N/A
 
@@ -133,7 +133,9 @@ export default function CartPage() {
 
 ### Step 4: Create components/store/CartItemRow.tsx
 
-Displays item image, name, size, unit price. Quantity controls: `-` button (min 1), input, `+` button. Remove button (trash icon). On quantity change: call `updateQty`; on remove: call `removeItem`.
+Displays item image (small, `w-16 h-16`), name, size, unit price. Quantity controls: `-` button (min 1), input, `+` button. Remove button (trash icon). On quantity change: call `updateQty`; on remove: call `removeItem`.
+
+Mobile layout: use `flex` row with the image on the left and content stacked on the right. Quantity `-`/`+` buttons must be `min-h-[44px] min-w-[44px]` (FR-013). The remove button must also be large enough to tap without zooming.
 
 ### Step 5: Create components/store/CartSummary.tsx
 
@@ -169,6 +171,8 @@ Test stubs at `__tests__/store/cart.test.ts` and `__tests__/store/cart-page.test
 - [ ] `buildWhatsAppUrl` correctly encodes special Portuguese characters (ã, ç, etc.)
 - [ ] Cart clears after "Enviar pelo WhatsApp" is clicked
 - [ ] Cart badge count updates immediately when items are added or removed
+- [ ] SC-007: Cart page has no horizontal scroll on 375px viewport; qty buttons meet 44px tap target
+- [ ] "Confirmar Pedido" button is full-width on mobile (`w-full`)
 
 ## Documentation / KB Updates
 

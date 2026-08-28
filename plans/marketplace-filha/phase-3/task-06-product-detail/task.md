@@ -4,7 +4,7 @@
 **Phase**: 3
 **Task ID (phase-local)**: task-06
 **Task Path**: phase-3/task-06-product-detail
-**Spec References**: Story 2 (P1) — all 5 scenarios, FR-003 (Zustand integration), SC-001
+**Spec References**: Story 2 (P1) — all 5 scenarios, FR-003, FR-013, SC-001, SC-007
 **Depends On**: phase-2/task-04-api-products
 **JIRA**: N/A
 
@@ -135,15 +135,18 @@ export default async function ProductPage({ params }: { params: { id: string } }
 
 Client Component:
 - State: `selectedIndex` (default 0)
-- Renders main image large + thumbnails row below
+- Renders main image large (`aspect-square w-full`) + thumbnails row below (`flex gap-2 overflow-x-auto`)
 - Clicking a thumbnail updates `selectedIndex`
-- Use `next/image` for all images
+- Use `next/image` with `fill` on a positioned container for the main image; fixed size for thumbnails
+- Thumbnail row must be horizontally scrollable on mobile — do not wrap
 
 ### Step 4: Create components/store/SizePicker.tsx
 
 Client Component:
 - Props: `sizes: string[]`, `value: string | null`, `onChange: (size: string) => void`
 - Renders each size as a button; selected size is highlighted
+- Each button: `min-h-[44px] min-w-[44px]` — required by FR-013 for mobile tap target size
+- Wrap in `flex flex-wrap gap-2` so sizes wrap naturally on narrow screens
 - If no size selected, `value === null`
 
 ### Step 5: Create components/store/AddToCartButton.tsx
@@ -168,6 +171,8 @@ Test stubs at `__tests__/store/product-detail.test.tsx`:
 **Additional verification**:
 - [ ] `notFound()` is called for inactive products
 - [ ] Cart store `addItem` increments quantity for duplicate product+size
+- [ ] SC-007: No horizontal scroll on 375px viewport; size buttons are large enough to tap comfortably
+- [ ] "Adicionar ao Carrinho" button is full-width on mobile (`w-full`)
 
 ## Documentation / KB Updates
 

@@ -133,6 +133,7 @@ The seller creates new products (with name, description, price, category, sizes,
 - **FR-010**: System MUST display a pre-checkout confirmation screen before opening WhatsApp, informing the customer she will be redirected.
 - **FR-011**: System MUST validate product form fields on both client (zod + react-hook-form) and server (zod in API route handler).
 - **FR-012**: System MUST return `401 Unauthorized` from all `POST /api/products` and `PUT /api/products/[id]` calls when no valid session exists.
+- **FR-013**: All store-front pages (`(store)/`) MUST be designed mobile-first and usable on screens ≥ 320px wide. Tap targets MUST be ≥ 44×44px. No horizontal scroll on any viewport.
 
 ---
 
@@ -144,6 +145,7 @@ The seller creates new products (with name, description, price, category, sizes,
 - **SC-004**: The WhatsApp `text` parameter contains the correctly formatted order with each item's name, size, qty, price, and the total.
 - **SC-005**: All `/admin/**` routes return a redirect to `/login` for unauthenticated requests (verified via middleware test).
 - **SC-006**: Product form validates required fields client-side (zod) and rejects invalid POSTs server-side with descriptive error responses.
+- **SC-007**: The full customer flow (vitrine → detail → cart → checkout) is verified on a 375px-wide viewport (iPhone SE baseline) with no layout breaks, no horizontal scroll, and all tap targets reachable.
 
 ---
 

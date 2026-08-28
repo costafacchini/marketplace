@@ -5,7 +5,7 @@
 **Last Updated**: 2026-08-27
 **Assigned Dev**: Alan Costa Facchini
 **PR Strategy**: per-wave
-**Spec**: [spec.md](spec.md) — 5 user stories · 24 acceptance scenarios · 6 success criteria
+**Spec**: [spec.md](spec.md) — 5 user stories · 24 acceptance scenarios · 7 success criteria
 
 ## Objective
 
@@ -19,7 +19,7 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 - PostgreSQL schema (Product + Category enum) deployed on Railway
 - NextAuth.js Credentials authentication for single admin user
 - Product CRUD REST API (soft-delete via `active` flag)
-- Store front: vitrine with category filter, product detail with image gallery
+- Store front: vitrine with category filter, product detail with image gallery — mobile-first (≥ 320px)
 - Client-side cart via Zustand (add, remove, update qty, clear)
 - WhatsApp checkout flow with pre-formatted message
 - Admin panel: product list, create form, edit form, active toggle
@@ -105,6 +105,7 @@ Per-wave PRs — open one PR per phase after ALL tasks in that phase are complet
 - **NextAuth session edge cases** — Credentials strategy does not support refresh tokens; session expiry must be explicit. Mitigate with a short but reasonable session `maxAge`.
 - **WhatsApp message encoding** — Special characters (ç, ã, etc.) must be `encodeURIComponent`-encoded in the URL; verify on mobile.
 - **bcrypt on serverless** — `bcryptjs` (pure JS) preferred over native `bcrypt` to avoid Vercel native module issues.
+- **Mobile tap targets** — shadcn/ui defaults may produce tap targets < 44px on some controls (size pickers, qty buttons). Verify and add `min-h-[44px] min-w-[44px]` overrides where needed.
 
 ## Success Criteria
 
@@ -114,6 +115,7 @@ Per-wave PRs — open one PR per phase after ALL tasks in that phase are complet
 - [ ] SC-004: WhatsApp message is correctly formatted with all cart items
 - [ ] SC-005: Unauthenticated `/admin` access redirects to `/login`
 - [ ] SC-006: All form validation works client and server-side
+- [ ] SC-007: Full customer flow verified on 375px viewport — no layout breaks, no horizontal scroll, all tap targets ≥ 44px
 - [ ] All tests pass (`npm test`)
 - [ ] Required KB / documentation updates are complete
 - [ ] No regressions in existing functionality
