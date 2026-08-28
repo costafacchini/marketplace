@@ -1,6 +1,6 @@
 # Plan: Small Business Seller
 
-**Status**: not-started
+**Status**: complete
 **Created**: 2026-08-27
 **Last Updated**: 2026-08-28
 **Assigned Dev**: Alan Costa Facchini
@@ -73,7 +73,7 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 | phase-4/task-08-admin-list | Admin Product List | 4 | complete | phase-2/task-03-auth, phase-2/task-04-api-products |
 | phase-4/task-09-admin-forms | Admin Create/Edit Forms + Cloudinary | 4 | complete | phase-4/task-08-admin-list |
 | phase-4/task-12-admin-pricelists | Admin Price List Management | 4 | complete | phase-2/task-03-auth, phase-2/task-11-api-pricelists |
-| phase-5/task-10-deploy | Deployment Config + Runbook | 5 | not-started | phase-3/task-07-cart, phase-4/task-09-admin-forms, phase-4/task-12-admin-pricelists |
+| phase-5/task-10-deploy | Deployment Config + Runbook | 5 | complete | phase-3/task-07-cart, phase-4/task-09-admin-forms, phase-4/task-12-admin-pricelists |
 
 ## Branch Convention
 

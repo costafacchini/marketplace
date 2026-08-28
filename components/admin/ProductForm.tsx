@@ -11,13 +11,13 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { CloudinaryWidget } from '@/components/admin/CloudinaryWidget'
 import { ImagePreview } from '@/components/admin/ImagePreview'
-import { productCreateSchema, type ProductCreateInput } from '@/lib/validations/product'
+import { productCreateSchema, type ProductFormValues } from '@/lib/validations/product'
 
 const SIZES = ['PP', 'P', 'M', 'G', 'GG', 'XGG', 'Único'] as const
 const CATEGORIES = ['CLOTHES', 'LINGERIE', 'WORKOUT'] as const
 
 interface Props {
-  initialData?: Partial<ProductCreateInput> & { id?: string }
+  initialData?: Partial<ProductFormValues> & { id?: string }
 }
 
 export function ProductForm({ initialData }: Props) {
@@ -26,7 +26,7 @@ export function ProductForm({ initialData }: Props) {
   const router = useRouter()
   const isEdit = Boolean(initialData?.id)
 
-  const form = useForm<ProductCreateInput>({
+  const form = useForm<ProductFormValues>({
     resolver: zodResolver(productCreateSchema),
     mode: 'onSubmit',
     defaultValues: isEdit
@@ -79,7 +79,7 @@ export function ProductForm({ initialData }: Props) {
     )
   }
 
-  async function onSubmit(data: ProductCreateInput) {
+  async function onSubmit(data: ProductFormValues) {
     setServerError(null)
     const url = isEdit ? `/api/products/${initialData!.id}` : '/api/products'
     const method = isEdit ? 'PUT' : 'POST'
