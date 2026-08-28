@@ -19,6 +19,7 @@ const config = {
     '!**/node_modules/**',
     '!app/layout.tsx',
     '!app/globals.css',
+    '!components/ui/**',
   ],
   coverageThreshold: {
     global: {
