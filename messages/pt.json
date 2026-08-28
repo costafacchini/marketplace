@@ -5,5 +5,16 @@
     "save": "Salvar",
     "cancel": "Cancelar",
     "back": "Voltar"
+  },
+  "admin": {
+    "login": {
+      "title": "Login Administrativo",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Entrar",
+      "submitting": "Entrando...",
+      "invalidCredentials": "E-mail ou senha inválidos.",
+      "signOut": "Sair"
+    }
   }
 }
