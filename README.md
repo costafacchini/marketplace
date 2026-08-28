@@ -1,51 +1,51 @@
 # Marketplace Filha
 
-Marketplace simples para venda de roupas, roupas íntimas e roupas de academia. A cliente navega pelos produtos, monta o carrinho e envia o pedido via WhatsApp para a vendedora fechar a venda manualmente.
+A simple marketplace for selling clothes, lingerie, and workout wear. Customers browse products, build a cart, and send the order via WhatsApp for the seller to close the sale manually.
 
 ---
 
-## Funcionalidades
+## Features
 
-### Loja (pública)
-- Vitrine com filtro por categoria (Roupas, Íntimas, Academia)
-- Ordenação: promoções primeiro, menor preço, A–Z
-- Badge **"X% OFF"** nos cards de produtos em promoção
-- Página de detalhe com galeria de fotos e seletor de tamanho
-- Carrinho client-side (sem login) com controle de quantidade
-- Checkout via WhatsApp com mensagem pré-formatada
+### Store (public)
+- Product grid with category filter (Clothes, Lingerie, Workout)
+- Sort options: promotions first, lowest price, A–Z
+- **"X% OFF"** badge on promotional product cards
+- Product detail page with photo gallery and size selector
+- Client-side cart (no login required) with quantity controls
+- WhatsApp checkout with a pre-formatted order message
 
-### Listas de preços (promoções)
-- Desconto percentual com vigência (data de início + expiração)
-- Escopo por categoria e/ou produtos individuais
-- Override de desconto por produto dentro da mesma lista
-- Preço promocional exibido em toda a jornada — vitrine, detalhe, carrinho e mensagem do WhatsApp
+### Price lists (promotions)
+- Percentage discount with a validity window (start date + expiry date)
+- Scope by category and/or individual products
+- Per-product discount override within the same list
+- Promotional price displayed throughout the entire flow — grid, detail, cart, and WhatsApp message
 
-### Painel admin (vendedora)
-- Autenticação por e-mail e senha (sem OAuth)
-- CRUD de produtos com upload de fotos direto para o Cloudinary
-- Ativar/desativar produtos (sem deletar do banco)
-- CRUD de listas de preços com seleção de categorias e produtos
+### Admin panel (seller)
+- Email + password authentication (no OAuth)
+- Product CRUD with direct-to-Cloudinary photo upload
+- Activate/deactivate products (no hard delete)
+- Price list CRUD with category and product scope selection
 
 ---
 
 ## Stack
 
-| Camada | Tecnologia |
-|--------|------------|
+| Layer | Technology |
+|-------|------------|
 | Framework | Next.js 14 (App Router) |
-| Banco de dados | PostgreSQL (Railway) |
+| Database | PostgreSQL (Railway) |
 | ORM | Prisma |
-| Autenticação | NextAuth.js (Credentials) |
-| Imagens | Cloudinary Upload Widget |
-| Estado do carrinho | Zustand (client-side, persistido em localStorage) |
+| Authentication | NextAuth.js (Credentials) |
+| Images | Cloudinary Upload Widget |
+| Cart state | Zustand (client-side, persisted in localStorage) |
 | UI | shadcn/ui + Tailwind CSS |
-| Validação | Zod + react-hook-form |
-| Deploy frontend | Vercel |
-| Deploy banco | Railway |
+| Validation | Zod + react-hook-form |
+| Frontend deploy | Vercel |
+| Database deploy | Railway |
 
 ---
 
-## Modelo de dados
+## Data Model
 
 ```prisma
 model Product {
@@ -55,7 +55,7 @@ model Product {
   price          Decimal         @db.Decimal(10, 2)
   category       Category
   sizes          String[]
-  images         String[]        // URLs Cloudinary
+  images         String[]        // Cloudinary URLs
   active         Boolean         @default(true)
   priceListItems PriceListItem[]
   createdAt      DateTime        @default(now())
@@ -81,7 +81,7 @@ model PriceListItem {
   priceListId String
   product     Product   @relation(fields: [productId], references: [id])
   productId   String
-  discountPct Decimal?  @db.Decimal(5, 2)  // override por produto
+  discountPct Decimal?  @db.Decimal(5, 2)  // per-product override
 
   @@unique([priceListId, productId])
 }
@@ -95,15 +95,15 @@ enum Category {
 
 ---
 
-## Fluxo da cliente
+## Customer Flow
 
-1. Acessa a vitrine → filtra por categoria e ordena como preferir
-2. Vê badge de desconto nos produtos em promoção
-3. Abre o produto → galeria de fotos, preço (com desconto se houver), tamanhos
-4. Adiciona ao carrinho com o tamanho escolhido
-5. Revisa o carrinho → ajusta quantidades ou remove itens
-6. Clica em **Confirmar Pedido** → tela de aviso antes do redirecionamento
-7. **Enviar pelo WhatsApp** → abre `wa.me` com mensagem pré-formatada
+1. Opens the store → filters by category and sorts as preferred
+2. Sees discount badge on promotional products
+3. Opens a product → photo gallery, price (with discount if applicable), available sizes
+4. Adds to cart with chosen size
+5. Reviews cart → adjusts quantities or removes items
+6. Clicks **Confirm Order** → pre-redirect notice screen
+7. **Send via WhatsApp** → opens `wa.me` with a pre-formatted message
 
 ```
 Olá! Gostaria de encomendar:
@@ -116,42 +116,42 @@ Total estimado: R$ 263,84
 
 ---
 
-## Fluxo da vendedora (admin)
+## Seller Flow (admin)
 
-1. Acessa `/login` → autentica com e-mail e senha
-2. Gerencia produtos: cria, edita, ativa/desativa, faz upload de fotos
-3. Gerencia listas de preços: define desconto %, período de vigência e escopo
-4. Fecha cada venda manualmente pelo WhatsApp
-
----
-
-## Lógica de resolução de preço
-
-Para cada produto, o sistema verifica todas as listas de preços ativas (`active = true` e dentro do período de vigência), ordenadas da mais recente para a mais antiga. A primeira lista que cobre o produto é aplicada:
-
-1. O produto está nos itens da lista → usa o `discountPct` do item (ou o da lista se não houver override)
-2. A categoria do produto está na lista → usa o `discountPct` da lista
-
-Se múltiplas listas cobrem o mesmo produto, a **mais recente** prevalece.
+1. Navigates to `/login` → authenticates with email and password
+2. Manages products: create, edit, activate/deactivate, upload photos
+3. Manages price lists: sets discount %, validity period, and scope
+4. Closes each sale manually via WhatsApp
 
 ---
 
-## Estrutura de rotas
+## Price Resolution Logic
+
+For each product, the system checks all active price lists (`active = true` and within the validity window), ordered most recent first (`createdAt DESC`). The first list that covers the product is applied:
+
+1. Product has an individual entry in the list → uses the item's `discountPct` (or the list's if no override)
+2. Product's category is in the list → uses the list's `discountPct`
+
+If multiple active lists cover the same product, the **most recently created** list wins.
+
+---
+
+## Route Structure
 
 ```
 app/
-├── (store)/                              ← loja pública (sem auth)
-│   ├── page.tsx                          ← vitrine com filtro + ordenação
-│   ├── products/[id]/page.tsx            ← detalhe do produto
-│   └── cart/page.tsx                     ← carrinho + checkout WhatsApp
+├── (store)/                              ← public store (no auth)
+│   ├── page.tsx                          ← product grid with filter + sort
+│   ├── products/[id]/page.tsx            ← product detail
+│   └── cart/page.tsx                     ← cart + WhatsApp checkout
 │
-├── (admin)/                              ← painel da vendedora (requer auth)
+├── (admin)/                              ← seller panel (auth required)
 │   ├── login/page.tsx
 │   └── admin/
-│       ├── page.tsx                      ← listagem de produtos
+│       ├── page.tsx                      ← product listing
 │       ├── products/new/page.tsx
 │       ├── products/[id]/edit/page.tsx
-│       ├── price-lists/page.tsx          ← listagem de listas de preços
+│       ├── price-lists/page.tsx          ← price list listing
 │       ├── price-lists/new/page.tsx
 │       └── price-lists/[id]/edit/page.tsx
 │
@@ -165,46 +165,46 @@ app/
 
 ---
 
-## Variáveis de ambiente
+## Environment Variables
 
 ```env
-# Banco de dados
+# Database
 DATABASE_URL=
 
 # NextAuth
 NEXTAUTH_SECRET=        # openssl rand -base64 32
-NEXTAUTH_URL=           # https://seu-dominio.vercel.app
+NEXTAUTH_URL=           # https://your-domain.vercel.app
 
 # Cloudinary
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
-NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=   # preset sem assinatura
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=   # unsigned upload preset
 
 # Admin
 ADMIN_EMAIL=
-ADMIN_PASSWORD_HASH=    # bcryptjs.hashSync('senha', 12)
+ADMIN_PASSWORD_HASH=    # bcryptjs.hashSync('password', 12)
 
 # WhatsApp
-NEXT_PUBLIC_WHATSAPP_NUMBER=   # formato: 5511999999999
+NEXT_PUBLIC_WHATSAPP_NUMBER=   # format: 5511999999999
 ```
 
 ---
 
-## Desenvolvimento local
+## Local Development
 
 ```bash
 npm install
-cp .env.example .env.local   # preencha as variáveis
+cp .env.example .env.local   # fill in the variables
 npx prisma migrate dev
 npm run dev                  # http://localhost:3000
 ```
 
 ---
 
-## Fora do escopo (v1)
+## Out of Scope (v1)
 
-- Pagamento online
-- Cadastro de clientes
-- Histórico de pedidos
-- Controle de estoque por quantidade
-- Múltiplos administradores
-- Notificações push / e-mail
+- Online payment
+- Customer registration
+- Order history
+- Per-unit inventory control
+- Multiple admin users
+- Push / email notifications

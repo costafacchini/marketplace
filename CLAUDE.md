@@ -24,7 +24,7 @@
 | Aspect | Value |
 |--------|-------|
 | Language/Framework | Next.js 14 (App Router), TypeScript |
-| Architecture | Route groups — `(store)` público + `(admin)` protegido por NextAuth |
+| Architecture | Route groups — `(store)` public (unauthenticated) + `(admin)` protected by NextAuth |
 | Main branch | `main` |
 | Deployment | Vercel (frontend) + Railway (PostgreSQL) |
 | Database | PostgreSQL via Prisma ORM |
