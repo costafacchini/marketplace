@@ -112,6 +112,23 @@ The seller creates new products (with name, description, price, category, sizes,
 
 ---
 
+### Story 8 — All UI Text is Internationalized (P1)
+
+All user-facing text in the store and admin panel is sourced from translation files. The active locale is set via the `NEXT_PUBLIC_LOCALE` environment variable (`en` by default, `pt` for Brazilian Portuguese). No display text is hardcoded in components.
+
+**Why this priority**: The seller and her customers are Brazilian; the app must work correctly in Portuguese. English is required as the default for the development environment and international deployments. Hardcoded strings block any locale switch.
+
+**Independent Test**: Set `NEXT_PUBLIC_LOCALE=pt` and start the dev server — all labels, buttons, and messages appear in Portuguese. Switch to `en` — all revert to English.
+
+**Acceptance Scenarios**:
+
+1. **Given** `NEXT_PUBLIC_LOCALE=en` (or the variable is unset), **When** any store or admin page loads, **Then** all UI labels, headings, button text, and messages are displayed in English.
+2. **Given** `NEXT_PUBLIC_LOCALE=pt`, **When** any store or admin page loads, **Then** all UI labels, headings, button text, and messages are displayed in Brazilian Portuguese.
+3. **Given** a text string is needed in a Server Component, **When** the component renders, **Then** it retrieves the string via `getTranslations()` from `next-intl/server` — never from a hardcoded literal.
+4. **Given** a text string is needed in a Client Component, **When** the component renders, **Then** it retrieves the string via `useTranslations()` from `next-intl` — never from a hardcoded literal.
+
+---
+
 ### Edge Cases
 
 - Adding the same product+size twice increments quantity (Story 2 scenario 5).
@@ -181,7 +198,11 @@ The seller creates and manages price lists: each list has a name, a percentage d
 - **FR-018**: A `PriceList` MUST have: `name`, `discountPct` (Decimal 0–100), `startsAt` (DateTime), `expiresAt` (DateTime), `active` (Boolean), optional `categories` (Category[]), and optional `items` (PriceListItem[]).
 - **FR-019**: `PriceListItem` MAY carry an individual `discountPct` override (Decimal 0–100, optional); if null, the parent list's `discountPct` is used.
 - **FR-020**: Admin MUST be able to create, edit, and deactivate price lists. No hard-delete — use `active = false`.
-- **FR-021**: The vitrine MUST offer a sort control with options: "Menor preço" (price asc, using promotional price), "Promoções primeiro" (promotional products first), and "A–Z" (alphabetical). Sorting is client-side and combines with the active category filter.
+- **FR-021**: The vitrine MUST offer a sort control with three options (labels sourced from translation files): price ascending (using promotional price), promotions first, and alphabetical A–Z. Sorting is client-side and combines with the active category filter.
+- **FR-022**: System MUST support English (`en`, default) and Brazilian Portuguese (`pt`) locales via translation files at `messages/en.json` and `messages/pt.json`.
+- **FR-023**: The active locale MUST be configured via the `NEXT_PUBLIC_LOCALE` environment variable (`en` | `pt`); it MUST default to `en` when the variable is absent or invalid.
+- **FR-024**: All user-facing text strings in `(store)/` and `(admin)/` route groups MUST be sourced from translation files via `next-intl`; no display text may be hardcoded in components.
+- **FR-025**: The `next-intl` provider MUST be configured in the root layout (`app/layout.tsx`) so that Server Components use `getTranslations()` from `next-intl/server` and Client Components use `useTranslations()` from `next-intl`.
 
 ---
 
@@ -196,6 +217,7 @@ The seller creates and manages price lists: each list has a name, a percentage d
 - **SC-007**: The full customer flow (vitrine → detail → cart → checkout) is verified on a 375px-wide viewport (iPhone SE baseline) with no layout breaks, no horizontal scroll, and all tap targets reachable.
 - **SC-008**: A product covered by an active price list shows the discounted price prominently and the original price struck through, on both the vitrine card and the product detail page.
 - **SC-009**: The WhatsApp order message uses the promotional price (not the original price) for any item covered by an active price list.
+- **SC-010**: Changing `NEXT_PUBLIC_LOCALE` from `en` to `pt` (or vice versa) switches all UI text to the corresponding language with no code changes required — only an environment variable update and redeploy.
 
 ---
 
@@ -208,3 +230,5 @@ The seller creates and manages price lists: each list has a name, a percentage d
 - Deployment targets: Vercel (frontend) + Railway (PostgreSQL); no Docker required for production.
 - `ADMIN_PASSWORD_HASH` is a bcrypt hash generated offline before deploy; no admin registration flow.
 - Mobile-first design but not a native app — responsive web only.
+- The locale is fixed per deployment via `NEXT_PUBLIC_LOCALE`; there is no runtime language switcher in v1. Customers and admin see whichever locale the deployment was built for.
+- Only `en` and `pt` are in scope; adding a third locale requires new translation files and is out of scope for v1.

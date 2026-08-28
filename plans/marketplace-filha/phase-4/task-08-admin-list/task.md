@@ -4,7 +4,7 @@
 **Phase**: 4
 **Task ID (phase-local)**: task-08
 **Task Path**: phase-4/task-08-admin-list
-**Spec References**: Story 4 (P2) — Scenarios 4, FR-001 (inverse: admin sees all), FR-008 (soft delete display), SC-005
+**Spec References**: Story 4 (P2) — Scenarios 4, Story 8 scenarios 1–4, FR-001 (inverse: admin sees all), FR-008 (soft delete display), FR-022, FR-024, FR-025, SC-005, SC-010
 **Depends On**: phase-2/task-03-auth, phase-2/task-04-api-products
 **JIRA**: N/A
 

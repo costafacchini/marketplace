@@ -76,6 +76,7 @@ Update `.agents/memory/preferences.md` when you learn how the user works.
 7. **Soft delete only** - Never hard-delete products or price lists; use `active = false`
 8. **bcryptjs not bcrypt** - Use `bcryptjs` (pure JS) to avoid native module issues on Vercel
 9. **Cloudinary uploads** - Images upload directly from the browser via Cloudinary Upload Widget; the server only stores the resulting URLs in `product.images[]`
+10. **i18n — no hardcoded strings** - All user-facing text MUST use `getTranslations()` (Server Components) or `useTranslations()` (Client Components) from `next-intl`; locale is set by `NEXT_PUBLIC_LOCALE` (`en` default | `pt`); translation files are `messages/en.json` and `messages/pt.json` — every key added in one file must be mirrored in the other
 
 ---
 

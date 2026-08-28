@@ -5,7 +5,7 @@
 **Last Updated**: 2026-08-28
 **Assigned Dev**: Alan Costa Facchini
 **PR Strategy**: per-wave
-**Spec**: [spec.md](spec.md) — 7 user stories · 39 acceptance scenarios · 9 success criteria
+**Spec**: [spec.md](spec.md) — 8 user stories · 43 acceptance scenarios · 10 success criteria
 
 ## Objective
 
@@ -28,6 +28,7 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 - Admin price list management: create/edit price lists with date range and scope
 - Cloudinary Upload Widget for direct browser-to-cloud image upload
 - Vercel deployment configuration and environment variable documentation
+- Internationalization (i18n) via `next-intl`: English (default) and Brazilian Portuguese, locale configured by `NEXT_PUBLIC_LOCALE` env var
 
 ### Out of Scope
 - Online payment / checkout gateway
@@ -105,6 +106,9 @@ Per-wave PRs — open one PR per phase after ALL tasks in that phase are complet
 | `components/` | Shared UI components |
 | `.env.example` | Environment variable template |
 | `docs/sdd.md` | Software Design Document (output of task-01) |
+| `i18n.ts` | next-intl request config — reads `NEXT_PUBLIC_LOCALE` |
+| `messages/en.json` | English translation strings |
+| `messages/pt.json` | Brazilian Portuguese translation strings |
 
 ## Risks
 
@@ -115,6 +119,7 @@ Per-wave PRs — open one PR per phase after ALL tasks in that phase are complet
 - **bcrypt on serverless** — `bcryptjs` (pure JS) preferred over native `bcrypt` to avoid Vercel native module issues.
 - **Mobile tap targets** — shadcn/ui defaults may produce tap targets < 44px on some controls (size pickers, qty buttons). Verify and add `min-h-[44px] min-w-[44px]` overrides where needed.
 - **Price resolution N+1** — resolving promotional prices for a full vitrine product list must batch-fetch all active price lists once, not per product. Mitigate with a single `getActivePriceLists()` call in the page Server Component passed down to a pure `resolvePrice()` function.
+- **i18n missing keys** — If a key exists in `en.json` but is absent from `pt.json`, next-intl falls back to the key name (not the English string). All keys added in English must be mirrored in Portuguese before merging. Enforce this in PR review.
 - **Price staleness in cart** — promotional price is snapshotted at add-to-cart time (Zustand localStorage). If a price list expires after the customer adds the item, the cart keeps the old price. This is accepted behavior for v1; the seller verifies at closing.
 
 ## Success Criteria
@@ -128,6 +133,7 @@ Per-wave PRs — open one PR per phase after ALL tasks in that phase are complet
 - [ ] SC-007: Full customer flow verified on 375px viewport — no layout breaks, no horizontal scroll, all tap targets ≥ 44px
 - [ ] SC-008: Active price list products show struck-through original price + discounted price on vitrine and detail
 - [ ] SC-009: WhatsApp order message uses promotional price when applicable
+- [ ] SC-010: Changing `NEXT_PUBLIC_LOCALE` between `en` and `pt` switches all UI text without code changes
 - [ ] All tests pass (`npm test`)
 - [ ] Required KB / documentation updates are complete
 - [ ] No regressions in existing functionality

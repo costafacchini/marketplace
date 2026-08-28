@@ -4,7 +4,7 @@
 **Phase**: 1
 **Task ID (phase-local)**: task-02
 **Task Path**: phase-1/task-02-scaffold
-**Spec References**: FR-009 (Decimal price), all stories (foundational)
+**Spec References**: FR-009 (Decimal price), FR-022, FR-023, FR-025 (i18n setup), all stories (foundational)
 **Depends On**: phase-0/task-01-sdd
 **JIRA**: N/A
 
@@ -51,6 +51,9 @@ Database migration runs locally against a dev PostgreSQL instance. Production mi
 | `app/globals.css` | create | Tailwind directives |
 | `components/ui/` | create | shadcn/ui primitive installs (button, card, badge, input, label, tabs, dialog) |
 | `CLAUDE.md` | modify | Add test/lint/dev commands to Key commands section |
+| `i18n.ts` | create | next-intl request config (reads `NEXT_PUBLIC_LOCALE`) |
+| `messages/en.json` | create | English translation strings (scaffold keys only — all features add their keys) |
+| `messages/pt.json` | create | Brazilian Portuguese translations (mirrors en.json) |
 
 ### Do NOT Modify
 
@@ -87,7 +90,12 @@ npm show @hookform/resolvers version
 
 Then install:
 ```bash
-npm install prisma @prisma/client next-auth zustand bcryptjs zod react-hook-form @hookform/resolvers
+npm show next-intl version
+```
+
+Then install:
+```bash
+npm install prisma @prisma/client next-auth zustand bcryptjs zod react-hook-form @hookform/resolvers next-intl
 npm install -D @types/bcryptjs
 ```
 
@@ -226,7 +234,88 @@ npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-### Step 10: Update CLAUDE.md Key Commands
+### Step 10: Set Up next-intl (i18n)
+
+Create `i18n.ts` at the project root:
+```typescript
+import { getRequestConfig } from 'next-intl/server'
+
+export default getRequestConfig(async () => {
+  const locale = (process.env.NEXT_PUBLIC_LOCALE ?? 'en') as 'en' | 'pt'
+  return {
+    locale,
+    messages: (await import(`./messages/${locale}.json`)).default,
+  }
+})
+```
+
+Create `messages/en.json` with scaffold-level keys (each feature task adds its own namespace):
+```json
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back"
+  }
+}
+```
+
+Create `messages/pt.json` mirroring every key in `en.json`:
+```json
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Algo deu errado.",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "back": "Voltar"
+  }
+}
+```
+
+Update `next.config.ts` to register the i18n plugin:
+```typescript
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin('./i18n.ts')
+
+const nextConfig = {
+  images: {
+    remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }],
+  },
+}
+
+export default withNextIntl(nextConfig)
+```
+
+Add `NEXT_PUBLIC_LOCALE` to `.env.example`:
+```env
+# Locale
+NEXT_PUBLIC_LOCALE=en   # en (default) | pt
+```
+
+Wrap the root layout with `NextIntlClientProvider`:
+```typescript
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const messages = await getMessages()
+  return (
+    <html lang={process.env.NEXT_PUBLIC_LOCALE ?? 'en'}>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+### Step 12: Update CLAUDE.md Key Commands
 
 Add to the project CLAUDE.md:
 ```
@@ -242,7 +331,9 @@ Add to the project CLAUDE.md:
 **Spec scenarios covered**: N/A — this task is scaffold only; no user-facing scenarios yet.
 
 **Additional verification**:
-- [ ] `npm run dev` starts without errors on port 3000
+- [ ] `npm run dev` starts without errors on port 3000 with `NEXT_PUBLIC_LOCALE=en`
+- [ ] `NEXT_PUBLIC_LOCALE=pt npm run dev` starts without errors and `getTranslations()` resolves Portuguese strings
+- [ ] `messages/en.json` and `messages/pt.json` have identical key sets
 - [ ] `npx prisma migrate dev` completes successfully (migration file created)
 - [ ] `npx prisma generate` completes without errors
 - [ ] `npm run build` completes without TypeScript errors
@@ -257,6 +348,8 @@ Add to the project CLAUDE.md:
 
 ## Completion Criteria
 
+- [ ] `i18n.ts` configured, `NextIntlClientProvider` in root layout
+- [ ] `messages/en.json` and `messages/pt.json` exist with identical key sets
 - [ ] `prisma/schema.prisma` matches spec exactly
 - [ ] `npx prisma migrate dev --name init` ran successfully
 - [ ] `.env.example` documents all required variables

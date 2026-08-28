@@ -200,6 +200,18 @@ npm run dev                  # http://localhost:3000
 
 ---
 
+## Internationalization (i18n)
+
+The UI supports English (default) and Brazilian Portuguese. The active locale is fixed per deployment via an environment variable — there is no runtime language switcher.
+
+| Variable | Values | Default |
+|----------|--------|---------|
+| `NEXT_PUBLIC_LOCALE` | `en` \| `pt` | `en` |
+
+Translation files live at `messages/en.json` and `messages/pt.json`. All user-facing strings in both the store and admin panel are sourced from these files via [`next-intl`](https://next-intl-docs.vercel.app/). No display text is hardcoded in components.
+
+---
+
 ## Out of Scope (v1)
 
 - Online payment

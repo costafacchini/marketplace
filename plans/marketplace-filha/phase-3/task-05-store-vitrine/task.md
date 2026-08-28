@@ -4,7 +4,7 @@
 **Phase**: 3
 **Task ID (phase-local)**: task-05
 **Task Path**: phase-3/task-05-store-vitrine
-**Spec References**: Story 1 (P1) — scenarios 1–8, Story 6 scenarios 1·4·5, FR-001, FR-002, FR-013, FR-014, FR-017, FR-021, SC-001, SC-003, SC-007, SC-008
+**Spec References**: Story 1 (P1) — scenarios 1–8, Story 6 scenarios 1·4·5, Story 8 scenarios 1–4, FR-001, FR-002, FR-013, FR-014, FR-017, FR-021, FR-022, FR-024, FR-025, SC-001, SC-003, SC-007, SC-008, SC-010
 **Depends On**: phase-2/task-04-api-products, phase-2/task-11-api-pricelists
 **JIRA**: N/A
 

@@ -4,7 +4,7 @@
 **Phase**: 3
 **Task ID (phase-local)**: task-06
 **Task Path**: phase-3/task-06-product-detail
-**Spec References**: Story 2 (P1) — all 5 scenarios, Story 6 scenario 6, FR-003, FR-013, FR-014, FR-017, SC-001, SC-007, SC-008
+**Spec References**: Story 2 (P1) — all 5 scenarios, Story 6 scenario 6, Story 8 scenarios 1–4, FR-003, FR-013, FR-014, FR-017, FR-022, FR-024, FR-025, SC-001, SC-007, SC-008, SC-010
 **Depends On**: phase-2/task-04-api-products, phase-2/task-11-api-pricelists
 **JIRA**: N/A
 

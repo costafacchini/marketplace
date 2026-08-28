@@ -103,6 +103,7 @@ Write a step-by-step deployment runbook covering:
    - Import GitHub repo
    - Framework preset: Next.js
    - Set all environment variables from `.env.example` with real values
+   - Set `NEXT_PUBLIC_LOCALE=pt` for the Brazilian Portuguese production deployment (or `en` for default)
    - Deploy
 6. **Database Migration** (first deploy):
    - Vercel build command includes `prisma migrate deploy` — runs automatically
@@ -143,7 +144,9 @@ Encode in `docs/deploy.md` as a manual checklist:
 - [ ] Promotional price shown (struck-through original) on vitrine and product detail
 - [ ] WhatsApp message uses promotional price for covered products
 - [ ] Deactivating price list removes discount from store immediately on next load
-- [ ] Admin price list listing shows correct status badges (Ativa / Agendada / Expirada / Inativa)
+- [ ] Admin price list listing shows correct status badges (Active / Scheduled / Expired / Inactive)
+- [ ] With `NEXT_PUBLIC_LOCALE=pt`, all UI labels appear in Portuguese
+- [ ] With `NEXT_PUBLIC_LOCALE=en` (default), all UI labels appear in English
 
 ### Step 6: Update CLAUDE.md
 

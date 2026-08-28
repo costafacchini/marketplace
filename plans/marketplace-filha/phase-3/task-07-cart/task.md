@@ -4,7 +4,7 @@
 **Phase**: 3
 **Task ID (phase-local)**: task-07
 **Task Path**: phase-3/task-07-cart
-**Spec References**: Story 3 (P1) — all 5 scenarios, Story 6 scenario 6, FR-003, FR-004, FR-010, FR-013, SC-001, SC-004, SC-007, SC-009
+**Spec References**: Story 3 (P1) — all 5 scenarios, Story 6 scenario 6, Story 8 scenarios 1–4, FR-003, FR-004, FR-010, FR-013, FR-022, FR-024, FR-025, SC-001, SC-004, SC-007, SC-009, SC-010
 **Depends On**: phase-3/task-06-product-detail
 **JIRA**: N/A
 

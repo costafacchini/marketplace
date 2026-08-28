@@ -4,7 +4,7 @@
 **Phase**: 4
 **Task ID (phase-local)**: task-09
 **Task Path**: phase-4/task-09-admin-forms
-**Spec References**: Story 5 (P2) — all 5 scenarios, FR-007, FR-009, FR-011, SC-002, SC-006
+**Spec References**: Story 5 (P2) — all 5 scenarios, Story 8 scenarios 1–4, FR-007, FR-009, FR-011, FR-022, FR-024, FR-025, SC-002, SC-006, SC-010
 **Depends On**: phase-4/task-08-admin-list
 **JIRA**: N/A
 

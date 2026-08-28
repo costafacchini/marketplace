@@ -4,7 +4,7 @@
 **Phase**: 4
 **Task ID (phase-local)**: task-12
 **Task Path**: phase-4/task-12-admin-pricelists
-**Spec References**: Story 7 (P2) — all 5 scenarios, FR-018, FR-019, FR-020, SC-008, SC-009
+**Spec References**: Story 7 (P2) — all 5 scenarios, Story 8 scenarios 1–4, FR-018, FR-019, FR-020, FR-022, FR-024, FR-025, SC-008, SC-009, SC-010
 **Depends On**: phase-2/task-03-auth, phase-2/task-11-api-pricelists
 **JIRA**: N/A
 
