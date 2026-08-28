@@ -23,18 +23,22 @@
 
 | Aspect | Value |
 |--------|-------|
-| Language/Framework |  |
-| Architecture | Single-purpose |
+| Language/Framework | Next.js 14 (App Router), TypeScript |
+| Architecture | Route groups — `(store)` público + `(admin)` protegido por NextAuth |
 | Main branch | `main` |
-| Deployment | Unknown |
-| Database | — |
-| Package manager |  |
+| Deployment | Vercel (frontend) + Railway (PostgreSQL) |
+| Database | PostgreSQL via Prisma ORM |
+| Package manager | npm |
 
 **Key commands**:
 ```bash
-# [test command]       # Run tests
-# [lint command]       # Lint
-# [dev command]        # Dev server
+npm run dev                              # Dev server (localhost:3000)
+npm run build                            # Production build
+npm run lint                             # ESLint
+npx prisma migrate dev --name <name>    # Create + apply dev migration
+npx prisma migrate deploy               # Apply migrations in production
+npx prisma studio                        # Browse database GUI
+npx prisma generate                      # Regenerate Prisma client
 ```
 
 ---
@@ -64,9 +68,14 @@ Update `.agents/memory/preferences.md` when you learn how the user works.
 ## Critical Constraints
 
 1. **No magic strings** - Use constants, enums, or config values
-2. **No N+1 queries** - Use eager loading where applicable
-3. **Sanitize inputs** - Validate at system boundaries
+2. **No N+1 queries** - Use eager loading where applicable; fetch all active price lists once per page render
+3. **Sanitize inputs** - Validate at system boundaries (zod on client + server for all forms)
 4. **Parameterized queries** - Never interpolate user input into queries
+5. **Decimal serialization** - Prisma `Decimal` cannot be passed to Client Components; serialize to `string` in the Server Component and convert back with `Number()` where needed
+6. **Pricing logic** - All price resolution lives in `lib/pricing.ts`; never duplicate discount logic elsewhere
+7. **Soft delete only** - Never hard-delete products or price lists; use `active = false`
+8. **bcryptjs not bcrypt** - Use `bcryptjs` (pure JS) to avoid native module issues on Vercel
+9. **Cloudinary uploads** - Images upload directly from the browser via Cloudinary Upload Widget; the server only stores the resulting URLs in `product.images[]`
 
 ---
 
