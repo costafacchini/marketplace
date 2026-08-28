@@ -42,6 +42,24 @@
     "products": {
       "title": "Products",
       "newProduct": "+ New Product",
+      "editProduct": "Edit Product",
+      "form": {
+        "name": "Name",
+        "description": "Description",
+        "price": "Price (R$)",
+        "category": "Category",
+        "sizes": "Sizes",
+        "images": "Photos",
+        "active": "Active",
+        "addPhotos": "Add Photos",
+        "imageAlt": "Product photo {index}",
+        "removeImage": "Remove photo",
+        "submit": "Save Product",
+        "submitCreate": "Create Product",
+        "submitEdit": "Save Changes",
+        "submitting": "Saving...",
+        "serverError": "Failed to save product. Please try again."
+      },
       "table": {
         "name": "Name",
         "category": "Category",
