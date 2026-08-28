@@ -8,7 +8,22 @@
   },
   "store": {
     "name": "Small Business Seller",
-    "cart": "Carrinho",
+    "navCart": "Carrinho",
+    "cart": {
+      "title": "Meu Carrinho",
+      "empty": "Seu carrinho está vazio.",
+      "backToStore": "Ver Produtos",
+      "remove": "Remover item",
+      "qty": "Quantidade",
+      "total": "Total",
+      "confirm": "Confirmar Pedido",
+      "modal": {
+        "title": "Confirmar pedido",
+        "description": "Você será redirecionada ao WhatsApp para finalizar a compra diretamente com a vendedora.",
+        "send": "Enviar pelo WhatsApp",
+        "back": "Voltar"
+      }
+    },
     "filter": {
       "all": "Todos",
       "clothes": "Roupas",
@@ -42,6 +57,24 @@
     "products": {
       "title": "Produtos",
       "newProduct": "+ Novo Produto",
+      "editProduct": "Editar Produto",
+      "form": {
+        "name": "Nome",
+        "description": "Descrição",
+        "price": "Preço (R$)",
+        "category": "Categoria",
+        "sizes": "Tamanhos",
+        "images": "Fotos",
+        "active": "Ativo",
+        "addPhotos": "Adicionar Fotos",
+        "imageAlt": "Foto do produto {index}",
+        "removeImage": "Remover foto",
+        "submit": "Salvar Produto",
+        "submitCreate": "Criar Produto",
+        "submitEdit": "Salvar Alterações",
+        "submitting": "Salvando...",
+        "serverError": "Erro ao salvar produto. Tente novamente."
+      },
       "table": {
         "name": "Nome",
         "category": "Categoria",

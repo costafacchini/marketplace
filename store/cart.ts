@@ -15,6 +15,10 @@ export interface CartItem {
 interface CartStore {
   items: CartItem[]
   addItem: (item: Omit<CartItem, 'quantity'>) => void
+  removeItem: (productId: string, size: string) => void
+  updateQty: (productId: string, size: string, qty: number) => void
+  clear: () => void
+  total: () => number
 }
 
 export const useCartStore = create<CartStore>()(
@@ -37,6 +41,23 @@ export const useCartStore = create<CartStore>()(
           set((state) => ({ items: [...state.items, { ...item, quantity: 1 }] }))
         }
       },
+      removeItem: (productId, size) => {
+        set((state) => ({
+          items: state.items.filter(
+            (i) => !(i.productId === productId && i.size === size)
+          ),
+        }))
+      },
+      updateQty: (productId, size, qty) => {
+        set((state) => ({
+          items: state.items.map((i) =>
+            i.productId === productId && i.size === size ? { ...i, quantity: qty } : i
+          ),
+        }))
+      },
+      clear: () => set({ items: [] }),
+      total: () =>
+        get().items.reduce((sum, i) => sum + i.price * i.quantity, 0),
     }),
     { name: CART_STORAGE_KEY }
   )
