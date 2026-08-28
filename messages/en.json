@@ -16,5 +16,13 @@
       "invalidCredentials": "Invalid email or password.",
       "signOut": "Sign out"
     }
+  },
+  "store": {
+    "product": {
+      "selectSize": "Select a size",
+      "sizeRequired": "Please select a size.",
+      "addToCart": "Add to Cart",
+      "added": "Added!"
+    }
   }
 }

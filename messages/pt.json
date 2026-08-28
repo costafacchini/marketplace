@@ -16,5 +16,13 @@
       "invalidCredentials": "E-mail ou senha inválidos.",
       "signOut": "Sair"
     }
+  },
+  "store": {
+    "product": {
+      "selectSize": "Selecione um tamanho",
+      "sizeRequired": "Selecione um tamanho.",
+      "addToCart": "Adicionar ao Carrinho",
+      "added": "Adicionado!"
+    }
   }
 }
