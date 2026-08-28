@@ -63,7 +63,7 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 | Task Path | Title | Phase | Status | Depends On |
 |-----------|-------|-------|--------|------------|
 | phase-0/task-01-sdd | Software Design Document | 0 | complete | — |
-| phase-1/task-02-scaffold | Project Scaffold + Prisma Schema | 1 | not-started | phase-0/task-01-sdd |
+| phase-1/task-02-scaffold | Project Scaffold + Prisma Schema | 1 | complete | phase-0/task-01-sdd |
 | phase-2/task-03-auth | NextAuth Authentication + Middleware | 2 | not-started | phase-1/task-02-scaffold |
 | phase-2/task-04-api-products | Product CRUD API Routes | 2 | not-started | phase-1/task-02-scaffold |
 | phase-2/task-11-api-pricelists | Price List CRUD API + lib/pricing.ts | 2 | not-started | phase-1/task-02-scaffold |
