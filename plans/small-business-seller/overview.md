@@ -64,9 +64,9 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 |-----------|-------|-------|--------|------------|
 | phase-0/task-01-sdd | Software Design Document | 0 | complete | — |
 | phase-1/task-02-scaffold | Project Scaffold + Prisma Schema | 1 | complete | phase-0/task-01-sdd |
-| phase-2/task-03-auth | NextAuth Authentication + Middleware | 2 | not-started | phase-1/task-02-scaffold |
-| phase-2/task-04-api-products | Product CRUD API Routes | 2 | not-started | phase-1/task-02-scaffold |
-| phase-2/task-11-api-pricelists | Price List CRUD API + lib/pricing.ts | 2 | not-started | phase-1/task-02-scaffold |
+| phase-2/task-03-auth | NextAuth Authentication + Middleware | 2 | complete | phase-1/task-02-scaffold |
+| phase-2/task-04-api-products | Product CRUD API Routes | 2 | complete | phase-1/task-02-scaffold |
+| phase-2/task-11-api-pricelists | Price List CRUD API + lib/pricing.ts | 2 | complete | phase-1/task-02-scaffold |
 | phase-3/task-05-store-vitrine | Store Vitrine + Category Filter | 3 | not-started | phase-2/task-04-api-products, phase-2/task-11-api-pricelists |
 | phase-3/task-06-product-detail | Product Detail Page | 3 | not-started | phase-2/task-04-api-products, phase-2/task-11-api-pricelists |
 | phase-3/task-07-cart | Zustand Cart + WhatsApp Checkout | 3 | not-started | phase-3/task-06-product-detail |
