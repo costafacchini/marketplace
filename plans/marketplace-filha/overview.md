@@ -2,7 +2,7 @@
 
 **Status**: not-started
 **Created**: 2026-08-27
-**Last Updated**: 2026-08-27
+**Last Updated**: 2026-08-28
 **Assigned Dev**: Alan Costa Facchini
 **PR Strategy**: per-wave
 **Spec**: [spec.md](spec.md) — 7 user stories · 39 acceptance scenarios · 9 success criteria
@@ -19,7 +19,8 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 - PostgreSQL schema (Product + Category enum) deployed on Railway
 - NextAuth.js Credentials authentication for single admin user
 - Product CRUD REST API (soft-delete via `active` flag)
-- Store front: vitrine with category filter, product detail with image gallery — mobile-first (≥ 320px)
+- Store front: vitrine with category filter + sort control (menor preço / promoções primeiro / A–Z), product detail with image gallery — mobile-first (≥ 320px)
+- Promo badge ("X% OFF") overlaid on product card image when a price list is active
 - Promotional pricing: price lists with % discount, date range, category/product scope
 - Client-side cart via Zustand (add, remove, update qty, clear) — uses resolved promotional price
 - WhatsApp checkout flow with pre-formatted message (promotional prices)
@@ -50,7 +51,7 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 | 0 | SDD | task-01-sdd | None | Author the Software Design Document covering architecture, data model, API contracts, auth flow, and deployment |
 | 1 | Foundation | task-02-scaffold | Phase 0 | Scaffold Next.js 14 project, configure Prisma schema, run initial DB migration |
 | 2 | Auth + API | task-03-auth, task-04-api-products, task-11-api-pricelists | Phase 1 | NextAuth auth + product CRUD + price list CRUD API + `lib/pricing.ts` resolution logic |
-| 3 | Store Frontend | task-05-store-vitrine, task-06-product-detail, task-07-cart | Phase 2 | Customer-facing pages with promotional pricing display throughout |
+| 3 | Store Frontend | task-05-store-vitrine, task-06-product-detail, task-07-cart | Phase 2 | Customer-facing pages: promo badge + sort control on vitrine, promotional price on detail, Zustand cart + WhatsApp checkout |
 | 4 | Admin Panel | task-08-admin-list, task-09-admin-forms, task-12-admin-pricelists | Phase 2 | Product management + price list management UI |
 | 5 | Deploy | task-10-deploy | Phases 3 + 4 | Vercel config, Railway DB setup, environment docs, CI validation |
 
@@ -69,7 +70,7 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 | phase-4/task-08-admin-list | Admin Product List | 4 | not-started | phase-2/task-03-auth, phase-2/task-04-api-products |
 | phase-4/task-09-admin-forms | Admin Create/Edit Forms + Cloudinary | 4 | not-started | phase-4/task-08-admin-list |
 | phase-4/task-12-admin-pricelists | Admin Price List Management | 4 | not-started | phase-2/task-03-auth, phase-2/task-11-api-pricelists |
-| phase-5/task-10-deploy | Deployment Config + Runbook | 5 | not-started | phase-3/task-07-cart, phase-4/task-09-admin-forms |
+| phase-5/task-10-deploy | Deployment Config + Runbook | 5 | not-started | phase-3/task-07-cart, phase-4/task-09-admin-forms, phase-4/task-12-admin-pricelists |
 
 ## Branch Convention
 
@@ -89,15 +90,18 @@ Per-wave PRs — open one PR per phase after ALL tasks in that phase are complet
 | File/Directory | Relevance |
 |----------------|-----------|
 | `spec.md` | Project requirements and architecture decisions |
-| `prisma/schema.prisma` | Product model + Category enum |
+| `prisma/schema.prisma` | Product + PriceList + PriceListItem models |
 | `app/(store)/` | Customer-facing route group |
 | `app/(admin)/` | Seller admin route group |
 | `app/api/products/` | Product CRUD API handlers |
+| `app/api/price-lists/` | Price list CRUD API handlers |
 | `app/api/auth/[...nextauth]/route.ts` | NextAuth handler |
 | `middleware.ts` | Route protection for /admin |
-| `store/cart.ts` | Zustand cart store |
+| `lib/pricing.ts` | `getActivePriceLists()` + `resolvePrice()` — price resolution engine |
 | `lib/whatsapp.ts` | WhatsApp message formatter |
 | `lib/prisma.ts` | Prisma client singleton |
+| `store/cart.ts` | Zustand cart store |
+| `components/store/SortControl.tsx` | Sort dropdown + `sortProducts()` pure function |
 | `components/` | Shared UI components |
 | `.env.example` | Environment variable template |
 | `docs/sdd.md` | Software Design Document (output of task-01) |

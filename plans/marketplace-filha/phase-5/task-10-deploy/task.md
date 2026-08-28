@@ -4,8 +4,8 @@
 **Phase**: 5
 **Task ID (phase-local)**: task-10
 **Task Path**: phase-5/task-10-deploy
-**Spec References**: SC-001 through SC-006 (all success criteria must pass before deploy), SDD section 10
-**Depends On**: phase-3/task-07-cart, phase-4/task-09-admin-forms
+**Spec References**: SC-001 through SC-009 (all success criteria must pass before deploy), SDD section 10
+**Depends On**: phase-3/task-07-cart, phase-4/task-09-admin-forms, phase-4/task-12-admin-pricelists
 **JIRA**: N/A
 
 ## Objective
@@ -137,6 +137,13 @@ Encode in `docs/deploy.md` as a manual checklist:
 - [ ] Active toggle updates product visibility in store
 - [ ] Create product with photos works end-to-end
 - [ ] Edit product works and changes persist
+- [ ] Sort control (Menor preço / Promoções primeiro / A–Z) reorders vitrine correctly
+- [ ] Create price list with % discount + date range + category scope
+- [ ] Promo badge ("X% OFF") appears on covered product cards
+- [ ] Promotional price shown (struck-through original) on vitrine and product detail
+- [ ] WhatsApp message uses promotional price for covered products
+- [ ] Deactivating price list removes discount from store immediately on next load
+- [ ] Admin price list listing shows correct status badges (Ativa / Agendada / Expirada / Inativa)
 
 ### Step 6: Update CLAUDE.md
 
