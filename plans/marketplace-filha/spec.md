@@ -119,6 +119,43 @@ The seller creates new products (with name, description, price, category, sizes,
 
 ---
 
+### Story 6 — Customer Sees Promotional Prices (P1)
+
+When a price list is active and covers a product (by category or individually), the customer sees the discounted price alongside the original struck-through price. The promotional price is used everywhere: vitrine card, product detail, cart totals, and the WhatsApp order message.
+
+**Why this priority**: Promotional pricing is a key sales mechanic for the seller; it must be visible throughout the entire purchase flow.
+
+**Independent Test**: Create an active price list covering one category → products in that category show struck-through original price and highlighted promo price on the vitrine.
+
+**Acceptance Scenarios**:
+
+1. **Given** an active price list covers the CLOTHES category with 20% off, **When** the customer views the vitrine, **Then** CLOTHES products display the discounted price and the original price struck through.
+2. **Given** a product has an individual entry in a price list AND its category also appears in the same list, **When** the price is computed, **Then** the product-level discount is applied (product-level overrides category-level).
+3. **Given** two active price lists both cover the same product, **When** the price is computed, **Then** the discount from the most recently created list is applied.
+4. **Given** a price list whose `expiresAt` is in the past, **When** the customer views an affected product, **Then** the original price is shown (no discount).
+5. **Given** a price list whose `startsAt` is in the future, **When** the customer views an affected product, **Then** the original price is shown (promotion not yet active).
+6. **Given** a product is covered by a price list, **When** the customer adds it to the cart, **Then** the discounted price is stored in the cart and used in totals and the WhatsApp message.
+
+---
+
+### Story 7 — Admin Manages Price Lists (P2)
+
+The seller creates and manages price lists: each list has a name, a percentage discount, a date range (start + expiry), an active flag, and a scope (one or more categories and/or specific products).
+
+**Why this priority**: Without admin tooling to manage price lists, the feature cannot be used.
+
+**Independent Test**: Create a price list from the admin panel targeting one category with a % off and a future expiry → the list appears in the admin listing and the discount is visible in the store.
+
+**Acceptance Scenarios**:
+
+1. **Given** the admin is on `/admin/price-lists/new`, **When** she fills name, discount %, start date, expiry date, selects at least one category or product, and submits, **Then** the price list is created via `POST /api/price-lists` and appears in the listing.
+2. **Given** the admin submits the form with `expiresAt` before `startsAt`, **When** form validates, **Then** a validation error is shown and the list is not created.
+3. **Given** the admin is on a price list edit page, **When** she updates fields and saves, **Then** changes are persisted via `PUT /api/price-lists/[id]`.
+4. **Given** the admin toggles a price list's active switch to off, **When** saved, **Then** the price list no longer affects any product prices in the store.
+5. **Given** the admin lists price lists at `/admin/price-lists`, **When** the page loads, **Then** all price lists are shown with name, discount %, date range, active status, and covered scope.
+
+---
+
 ## Functional Requirements *(mandatory)*
 
 - **FR-001**: System MUST display only products where `active = true` on the store front (`(store)/` routes).
@@ -134,6 +171,13 @@ The seller creates new products (with name, description, price, category, sizes,
 - **FR-011**: System MUST validate product form fields on both client (zod + react-hook-form) and server (zod in API route handler).
 - **FR-012**: System MUST return `401 Unauthorized` from all `POST /api/products` and `PUT /api/products/[id]` calls when no valid session exists.
 - **FR-013**: All store-front pages (`(store)/`) MUST be designed mobile-first and usable on screens ≥ 320px wide. Tap targets MUST be ≥ 44×44px. No horizontal scroll on any viewport.
+- **FR-014**: System MUST resolve the effective price for each product at render time using all active price lists (`active = true` AND `startsAt <= now() <= expiresAt`).
+- **FR-015**: When a product is covered both via its category AND via an individual `PriceListItem` entry in the same price list, the `PriceListItem` entry MUST take precedence; its `discountPct` override is used if set, otherwise the list's `discountPct`.
+- **FR-016**: When multiple active price lists cover the same product, the most recently created (`createdAt DESC`) list's discount MUST be applied.
+- **FR-017**: Price resolution logic MUST be centralized in `lib/pricing.ts` and reused across Server Components and API routes — never duplicated.
+- **FR-018**: A `PriceList` MUST have: `name`, `discountPct` (Decimal 0–100), `startsAt` (DateTime), `expiresAt` (DateTime), `active` (Boolean), optional `categories` (Category[]), and optional `items` (PriceListItem[]).
+- **FR-019**: `PriceListItem` MAY carry an individual `discountPct` override (Decimal 0–100, optional); if null, the parent list's `discountPct` is used.
+- **FR-020**: Admin MUST be able to create, edit, and deactivate price lists. No hard-delete — use `active = false`.
 
 ---
 
@@ -146,6 +190,8 @@ The seller creates new products (with name, description, price, category, sizes,
 - **SC-005**: All `/admin/**` routes return a redirect to `/login` for unauthenticated requests (verified via middleware test).
 - **SC-006**: Product form validates required fields client-side (zod) and rejects invalid POSTs server-side with descriptive error responses.
 - **SC-007**: The full customer flow (vitrine → detail → cart → checkout) is verified on a 375px-wide viewport (iPhone SE baseline) with no layout breaks, no horizontal scroll, and all tap targets reachable.
+- **SC-008**: A product covered by an active price list shows the discounted price prominently and the original price struck through, on both the vitrine card and the product detail page.
+- **SC-009**: The WhatsApp order message uses the promotional price (not the original price) for any item covered by an active price list.
 
 ---
 

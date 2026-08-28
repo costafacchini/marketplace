@@ -4,7 +4,7 @@
 **Phase**: 3
 **Task ID (phase-local)**: task-07
 **Task Path**: phase-3/task-07-cart
-**Spec References**: Story 3 (P1) — all 5 scenarios, FR-003, FR-004, FR-010, FR-013, SC-001, SC-004, SC-007
+**Spec References**: Story 3 (P1) — all 5 scenarios, Story 6 scenario 6, FR-003, FR-004, FR-010, FR-013, SC-001, SC-004, SC-007, SC-009
 **Depends On**: phase-3/task-06-product-detail
 **JIRA**: N/A
 
@@ -19,6 +19,8 @@ Reference `docs/sdd.md` sections 6 (Zustand cart shape), 8 (WhatsApp checkout fl
 `store/cart.ts` was created as a stub by task-06. This task extends it with `removeItem`, `updateQty`, `clear`, and `total`. Do not remove or rewrite `addItem` — only extend.
 
 The WhatsApp number comes from `NEXT_PUBLIC_WHATSAPP_NUMBER` env var. The `text` param must be `encodeURIComponent`-encoded (handles ç, ã, etc.).
+
+**Important — promotional price in cart**: The `price` stored in each `CartItem` is the resolved promotional price (or original price when no promotion applies), snapshotted by `AddToCartButton` at add-to-cart time using the prop passed down from the Server Component. This means the WhatsApp message automatically uses the correct price with no extra logic here. If a promotion expires after the customer has added items, the snapshotted price remains — this is accepted v1 behavior (seller verifies at closing).
 
 ## Before You Start
 

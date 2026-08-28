@@ -4,8 +4,8 @@
 **Phase**: 3
 **Task ID (phase-local)**: task-05
 **Task Path**: phase-3/task-05-store-vitrine
-**Spec References**: Story 1 (P1) — all 5 scenarios, FR-001, FR-002, FR-013, SC-001, SC-003, SC-007
-**Depends On**: phase-2/task-04-api-products
+**Spec References**: Story 1 (P1) — all 5 scenarios, Story 6 scenarios 1·4·5, FR-001, FR-002, FR-013, FR-014, FR-017, SC-001, SC-003, SC-007, SC-008
+**Depends On**: phase-2/task-04-api-products, phase-2/task-11-api-pricelists
 **JIRA**: N/A
 
 ## Objective
@@ -58,20 +58,34 @@ Server Component. Renders a header with the store name and a cart icon linking t
 
 ### Step 2: Create app/(store)/page.tsx
 
+Fetch products AND active price lists in one Server Component render. Call `resolvePrice()` from `lib/pricing.ts` (created by task-11) for each product. Pass `originalPrice` and `promotionalPrice` (null when no promotion applies) to client components.
+
 ```typescript
 import { prisma } from '@/lib/prisma'
+import { getActivePriceLists, resolvePrice } from '@/lib/pricing'
 import { CategoryFilter } from '@/components/store/CategoryFilter'
-import { ProductGrid } from '@/components/store/ProductGrid'
 
 export default async function VitrinePage() {
-  const products = await prisma.product.findMany({
-    where: { active: true },
-    orderBy: { createdAt: 'desc' },
-    select: { id: true, name: true, price: true, category: true, images: true },
-  })
+  const [products, activeLists] = await Promise.all([
+    prisma.product.findMany({
+      where: { active: true },
+      orderBy: { createdAt: 'desc' },
+      select: { id: true, name: true, price: true, category: true, images: true },
+    }),
+    getActivePriceLists(),  // fetches all PriceLists + PriceListItems in one query
+  ])
 
-  // Serialize Decimal to string before passing to Client Components
-  const serialized = products.map(p => ({ ...p, price: p.price.toString() }))
+  const serialized = products.map(p => {
+    const promoPrice = resolvePrice(p.id, p.category, p.price, activeLists)
+    return {
+      id: p.id,
+      name: p.name,
+      category: p.category,
+      images: p.images,
+      originalPrice: p.price.toString(),
+      promotionalPrice: promoPrice ? promoPrice.toString() : null,
+    }
+  })
 
   return (
     <main>
@@ -119,7 +133,10 @@ Mobile-first grid: `grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`. The 2
 
 ### Step 5: Create components/store/ProductCard.tsx
 
-- Display: main image (next/image), product name, formatted price (`R$ X,XX`)
+- Display: main image (next/image), product name, price block
+- Price block logic:
+  - If `promotionalPrice !== null`: show `promotionalPrice` large + colored, `originalPrice` small + `line-through text-muted-foreground`
+  - Else: show `originalPrice` normally
 - Full card is a `<Link href={/products/${id}}>` (not just the title)
 - Use shadcn/ui `Card` component
 - Truncate long names with `line-clamp-2`
@@ -145,6 +162,9 @@ Test stubs at `__tests__/store/vitrine.test.tsx`:
 - [ ] Story 1 / Scenario 3: **Given** homepage loaded, **When** "Íntimas" tab clicked, **Then** only LINGERIE products shown — `__tests__/store/vitrine.test.tsx`
 - [ ] Story 1 / Scenario 4: **Given** homepage loaded, **When** "Academia" tab clicked, **Then** only WORKOUT products shown — `__tests__/store/vitrine.test.tsx`
 - [ ] Story 1 / Scenario 5: **Given** category has no active products, **When** that tab selected, **Then** empty-state message rendered — `__tests__/store/vitrine.test.tsx`
+- [ ] Story 6 / Scenario 1: **Given** active price list covers CLOTHES with 20% off, **When** vitrine renders, **Then** CLOTHES cards show discounted price + struck-through original — `__tests__/store/vitrine.test.tsx`
+- [ ] Story 6 / Scenario 4: **Given** expired price list, **When** vitrine renders, **Then** products show original price (no discount) — `__tests__/store/vitrine.test.tsx`
+- [ ] Story 6 / Scenario 5: **Given** price list with `startsAt` in the future, **When** vitrine renders, **Then** products show original price — `__tests__/store/vitrine.test.tsx`
 
 **Additional verification**:
 - [ ] `ProductCard` links correctly to `/products/[id]`
@@ -161,8 +181,10 @@ Test stubs at `__tests__/store/vitrine.test.tsx`:
 ## Completion Criteria
 
 - [ ] All 5 Story 1 acceptance scenarios pass
+- [ ] Story 6 pricing scenarios (1, 4, 5) pass on the vitrine
 - [ ] Category filter works without page reload
 - [ ] Empty state renders when category has no products
+- [ ] SC-008: Promo price card shows struck-through original price
 - [ ] `npm run build` passes without errors
 - [ ] Changes committed to `plan/marketplace-filha/phase-3/task-05-store-vitrine` branch
 - [ ] Status updated in `status.md`

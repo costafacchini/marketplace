@@ -110,16 +110,41 @@ datasource db {
 }
 
 model Product {
-  id          String    @id @default(cuid())
+  id             String          @id @default(cuid())
+  name           String
+  description    String?
+  price          Decimal         @db.Decimal(10, 2)
+  category       Category
+  sizes          String[]
+  images         String[]
+  active         Boolean         @default(true)
+  priceListItems PriceListItem[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model PriceList {
+  id          String          @id @default(cuid())
   name        String
-  description String?
-  price       Decimal   @db.Decimal(10, 2)
-  category    Category
-  sizes       String[]
-  images      String[]
-  active      Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  discountPct Decimal         @db.Decimal(5, 2)   // 0.00–100.00
+  startsAt    DateTime
+  expiresAt   DateTime
+  active      Boolean         @default(true)
+  categories  Category[]      // empty = no category-level coverage
+  items       PriceListItem[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model PriceListItem {
+  id          String    @id @default(cuid())
+  priceList   PriceList @relation(fields: [priceListId], references: [id], onDelete: Cascade)
+  priceListId String
+  product     Product   @relation(fields: [productId], references: [id])
+  productId   String
+  discountPct Decimal?  @db.Decimal(5, 2)  // overrides PriceList.discountPct when set
+
+  @@unique([priceListId, productId])
 }
 
 enum Category {
