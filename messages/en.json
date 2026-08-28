@@ -8,7 +8,22 @@
   },
   "store": {
     "name": "Small Business Seller",
-    "cart": "Cart",
+    "navCart": "Cart",
+    "cart": {
+      "title": "My Cart",
+      "empty": "Your cart is empty.",
+      "backToStore": "Browse Products",
+      "remove": "Remove item",
+      "qty": "Quantity",
+      "total": "Total",
+      "confirm": "Confirm Order",
+      "modal": {
+        "title": "Confirm your order",
+        "description": "You will be redirected to WhatsApp to finalize your purchase directly with the seller.",
+        "send": "Send via WhatsApp",
+        "back": "Go back"
+      }
+    },
     "filter": {
       "all": "All",
       "clothes": "Clothes",

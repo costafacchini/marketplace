@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { ShoppingCart } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { CartBadge } from '@/components/store/CartBadge'
 
 export default async function StoreLayout({ children }: { children: React.ReactNode }) {
   const t = await getTranslations('store')
@@ -14,11 +14,11 @@ export default async function StoreLayout({ children }: { children: React.ReactN
           </Link>
           <Link
             href="/cart"
-            aria-label={t('cart')}
+            aria-label={t('navCart')}
             className="flex items-center gap-1 min-h-[44px] px-2"
           >
-            <ShoppingCart className="size-5" />
-            <span className="text-sm">{t('cart')}</span>
+            <CartBadge />
+            <span className="text-sm">{t('navCart')}</span>
           </Link>
         </div>
       </header>

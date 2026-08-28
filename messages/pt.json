@@ -8,7 +8,22 @@
   },
   "store": {
     "name": "Small Business Seller",
-    "cart": "Carrinho",
+    "navCart": "Carrinho",
+    "cart": {
+      "title": "Meu Carrinho",
+      "empty": "Seu carrinho está vazio.",
+      "backToStore": "Ver Produtos",
+      "remove": "Remover item",
+      "qty": "Quantidade",
+      "total": "Total",
+      "confirm": "Confirmar Pedido",
+      "modal": {
+        "title": "Confirmar pedido",
+        "description": "Você será redirecionada ao WhatsApp para finalizar a compra diretamente com a vendedora.",
+        "send": "Enviar pelo WhatsApp",
+        "back": "Voltar"
+      }
+    },
     "filter": {
       "all": "Todos",
       "clothes": "Roupas",
