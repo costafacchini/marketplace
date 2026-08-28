@@ -5,7 +5,7 @@
 **Last Updated**: 2026-08-28
 **Assigned Dev**: Alan Costa Facchini
 **PR Strategy**: per-wave
-**Spec**: [spec.md](spec.md) — 8 user stories · 43 acceptance scenarios · 10 success criteria
+**Spec**: [spec.md](spec.md) — 8 user stories · 43 acceptance scenarios · 11 success criteria
 
 ## Objective
 
@@ -29,6 +29,8 @@ Build a complete Next.js 14 clothing marketplace where customers browse products
 - Cloudinary Upload Widget for direct browser-to-cloud image upload
 - Vercel deployment configuration and environment variable documentation
 - Internationalization (i18n) via `next-intl`: English (default) and Brazilian Portuguese, locale configured by `NEXT_PUBLIC_LOCALE` env var
+- Automated test suite: Jest + React Testing Library, TDD approach, ≥ 60% coverage enforced via `coverageThreshold`
+- ESLint with Next.js recommended rules — 0 errors required before every phase PR
 
 ### Out of Scope
 - Online payment / checkout gateway
@@ -106,6 +108,9 @@ Per-wave PRs — open one PR per phase after ALL tasks in that phase are complet
 | `components/` | Shared UI components |
 | `.env.example` | Environment variable template |
 | `docs/sdd.md` | Software Design Document (output of task-01) |
+| `jest.config.ts` | Jest config with coverage thresholds (60%) and next/jest preset |
+| `jest.setup.ts` | Jest setup — imports `@testing-library/jest-dom` |
+| `__tests__/` | Test files, co-located with the feature directories they cover |
 | `i18n.ts` | next-intl request config — reads `NEXT_PUBLIC_LOCALE` |
 | `messages/en.json` | English translation strings |
 | `messages/pt.json` | Brazilian Portuguese translation strings |
@@ -134,6 +139,7 @@ Per-wave PRs — open one PR per phase after ALL tasks in that phase are complet
 - [ ] SC-008: Active price list products show struck-through original price + discounted price on vitrine and detail
 - [ ] SC-009: WhatsApp order message uses promotional price when applicable
 - [ ] SC-010: Changing `NEXT_PUBLIC_LOCALE` between `en` and `pt` switches all UI text without code changes
+- [ ] SC-011: `npm run test:coverage` exits 0 with ≥ 60% coverage; `npm run lint` exits 0 with 0 errors
 - [ ] All tests pass (`npm test`)
 - [ ] Required KB / documentation updates are complete
 - [ ] No regressions in existing functionality

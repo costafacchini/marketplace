@@ -4,7 +4,7 @@
 **Phase**: 1
 **Task ID (phase-local)**: task-02
 **Task Path**: phase-1/task-02-scaffold
-**Spec References**: FR-009 (Decimal price), FR-022, FR-023, FR-025 (i18n setup), all stories (foundational)
+**Spec References**: FR-009 (Decimal price), FR-022, FR-023, FR-025 (i18n setup), FR-026, FR-028, FR-029 (test + lint setup), all stories (foundational)
 **Depends On**: phase-0/task-01-sdd
 **JIRA**: N/A
 
@@ -51,6 +51,8 @@ Database migration runs locally against a dev PostgreSQL instance. Production mi
 | `app/globals.css` | create | Tailwind directives |
 | `components/ui/` | create | shadcn/ui primitive installs (button, card, badge, input, label, tabs, dialog) |
 | `CLAUDE.md` | modify | Add test/lint/dev commands to Key commands section |
+| `jest.config.ts` | create | Jest config with next/jest preset and 60% coverage thresholds |
+| `jest.setup.ts` | create | Jest global setup — imports @testing-library/jest-dom |
 | `i18n.ts` | create | next-intl request config (reads `NEXT_PUBLIC_LOCALE`) |
 | `messages/en.json` | create | English translation strings (scaffold keys only — all features add their keys) |
 | `messages/pt.json` | create | Brazilian Portuguese translations (mirrors en.json) |
@@ -91,12 +93,17 @@ npm show @hookform/resolvers version
 Then install:
 ```bash
 npm show next-intl version
+npm show jest version
+npm show jest-environment-jsdom version
+npm show @testing-library/react version
+npm show @testing-library/jest-dom version
+npm show @testing-library/user-event version
 ```
 
 Then install:
 ```bash
 npm install prisma @prisma/client next-auth zustand bcryptjs zod react-hook-form @hookform/resolvers next-intl
-npm install -D @types/bcryptjs
+npm install -D @types/bcryptjs jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event
 ```
 
 ### Step 3: Initialize Prisma
@@ -234,7 +241,60 @@ npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-### Step 10: Set Up next-intl (i18n)
+### Step 10: Configure Jest + React Testing Library
+
+Create `jest.config.ts`:
+```typescript
+import type { Config } from 'jest'
+import nextJest from 'next/jest'
+
+const createJestConfig = nextJest({ dir: './' })
+
+const config: Config = {
+  coverageProvider: 'v8',
+  testEnvironment: 'jsdom',
+  setupFilesAfterFramework: ['<rootDir>/jest.setup.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
+  },
+  collectCoverageFrom: [
+    'app/**/*.{ts,tsx}',
+    'components/**/*.{ts,tsx}',
+    'lib/**/*.{ts,tsx}',
+    'store/**/*.{ts,tsx}',
+    '!**/*.d.ts',
+    '!**/node_modules/**',
+    '!app/layout.tsx',          // pure wiring, no logic
+    '!app/globals.css',
+  ],
+  coverageThreshold: {
+    global: {
+      statements: 60,
+      branches: 60,
+      functions: 60,
+      lines: 60,
+    },
+  },
+}
+
+export default createJestConfig(config)
+```
+
+Create `jest.setup.ts`:
+```typescript
+import '@testing-library/jest-dom'
+```
+
+Add test scripts to `package.json`:
+```json
+"scripts": {
+  "test": "jest",
+  "test:watch": "jest --watch",
+  "test:coverage": "jest --coverage"
+}
+```
+
+### Step 12: Set Up next-intl (i18n)
 
 Create `i18n.ts` at the project root:
 ```typescript
@@ -315,7 +375,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 ```
 
-### Step 12: Update CLAUDE.md Key Commands
+### Step 13: Update CLAUDE.md Key Commands
 
 Add to the project CLAUDE.md:
 ```
@@ -331,6 +391,9 @@ Add to the project CLAUDE.md:
 **Spec scenarios covered**: N/A — this task is scaffold only; no user-facing scenarios yet.
 
 **Additional verification**:
+- [ ] `npm test` runs with 0 failures (no coverage yet — scaffold has no app code)
+- [ ] `npm run test:coverage` runs without crashing and reports 0 uncovered lines (empty coverage is acceptable at scaffold stage)
+- [ ] `npm run lint` passes with 0 errors
 - [ ] `npm run dev` starts without errors on port 3000 with `NEXT_PUBLIC_LOCALE=en`
 - [ ] `NEXT_PUBLIC_LOCALE=pt npm run dev` starts without errors and `getTranslations()` resolves Portuguese strings
 - [ ] `messages/en.json` and `messages/pt.json` have identical key sets
@@ -348,6 +411,8 @@ Add to the project CLAUDE.md:
 
 ## Completion Criteria
 
+- [ ] `jest.config.ts` with coverageThreshold at 60% is in place
+- [ ] `npm test` and `npm run test:coverage` scripts work
 - [ ] `i18n.ts` configured, `NextIntlClientProvider` in root layout
 - [ ] `messages/en.json` and `messages/pt.json` exist with identical key sets
 - [ ] `prisma/schema.prisma` matches spec exactly

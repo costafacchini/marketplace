@@ -203,6 +203,10 @@ The seller creates and manages price lists: each list has a name, a percentage d
 - **FR-023**: The active locale MUST be configured via the `NEXT_PUBLIC_LOCALE` environment variable (`en` | `pt`); it MUST default to `en` when the variable is absent or invalid.
 - **FR-024**: All user-facing text strings in `(store)/` and `(admin)/` route groups MUST be sourced from translation files via `next-intl`; no display text may be hardcoded in components.
 - **FR-025**: The `next-intl` provider MUST be configured in the root layout (`app/layout.tsx`) so that Server Components use `getTranslations()` from `next-intl/server` and Client Components use `useTranslations()` from `next-intl`.
+- **FR-026**: The project MUST use **Jest** + **React Testing Library** as the automated test framework. `npm test` runs the full suite; `npm run test:coverage` reports coverage. Tests live in `__tests__/` directories co-located with the code they cover.
+- **FR-027**: All logic in `lib/` (pricing.ts, whatsapp.ts, validations/) and all non-trivial React components MUST be developed using **Test-Driven Development (TDD)**: write a failing test first, implement the minimum code to pass it, then refactor. Implementation tasks must not be considered complete unless the tests were written before or alongside the code — never after.
+- **FR-028**: The automated test suite MUST achieve a minimum of **60% coverage** across statements, branches, functions, and lines (enforced via Jest `coverageThreshold`). `npm run test:coverage` MUST exit 0 before any phase PR is opened.
+- **FR-029**: ESLint with Next.js recommended rules is the project linter. `npm run lint` MUST pass with **0 errors** before any commit. Warnings are allowed but must not block CI.
 
 ---
 
@@ -218,6 +222,7 @@ The seller creates and manages price lists: each list has a name, a percentage d
 - **SC-008**: A product covered by an active price list shows the discounted price prominently and the original price struck through, on both the vitrine card and the product detail page.
 - **SC-009**: The WhatsApp order message uses the promotional price (not the original price) for any item covered by an active price list.
 - **SC-010**: Changing `NEXT_PUBLIC_LOCALE` from `en` to `pt` (or vice versa) switches all UI text to the corresponding language with no code changes required — only an environment variable update and redeploy.
+- **SC-011**: `npm run test:coverage` exits 0 with ≥ 60% coverage across statements, branches, functions, and lines. `npm run lint` exits 0 with 0 errors.
 
 ---
 
@@ -232,3 +237,5 @@ The seller creates and manages price lists: each list has a name, a percentage d
 - Mobile-first design but not a native app — responsive web only.
 - The locale is fixed per deployment via `NEXT_PUBLIC_LOCALE`; there is no runtime language switcher in v1. Customers and admin see whichever locale the deployment was built for.
 - Only `en` and `pt` are in scope; adding a third locale requires new translation files and is out of scope for v1.
+- TDD is the required development approach; tests are written before or alongside implementation, never as a post-hoc addition.
+- The 60% coverage threshold is a floor, not a target — individual modules (especially `lib/`) should aim higher.

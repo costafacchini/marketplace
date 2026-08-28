@@ -200,6 +200,20 @@ npm run dev                  # http://localhost:3000
 
 ---
 
+## Testing
+
+The project uses **Jest** + **React Testing Library**. Development follows a **TDD approach** — tests are written before or alongside implementation, never after.
+
+```bash
+npm test                 # Run the full test suite
+npm run test:watch       # Watch mode
+npm run test:coverage    # Run with coverage report
+```
+
+Coverage threshold: **≥ 60%** on statements, branches, functions, and lines (enforced in `jest.config.ts`). `lib/` modules (pricing logic, WhatsApp formatter, validations) aim for 80%+.
+
+---
+
 ## Internationalization (i18n)
 
 The UI supports English (default) and Brazilian Portuguese. The active locale is fixed per deployment via an environment variable — there is no runtime language switcher.

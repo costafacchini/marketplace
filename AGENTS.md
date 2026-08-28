@@ -77,6 +77,9 @@ Update `.agents/memory/preferences.md` when you learn how the user works.
 8. **bcryptjs not bcrypt** - Use `bcryptjs` (pure JS) to avoid native module issues on Vercel
 9. **Cloudinary uploads** - Images upload directly from the browser via Cloudinary Upload Widget; the server only stores the resulting URLs in `product.images[]`
 10. **i18n — no hardcoded strings** - All user-facing text MUST use `getTranslations()` (Server Components) or `useTranslations()` (Client Components) from `next-intl`; locale is set by `NEXT_PUBLIC_LOCALE` (`en` default | `pt`); translation files are `messages/en.json` and `messages/pt.json` — every key added in one file must be mirrored in the other
+11. **TDD** - Write the failing test first, then the implementation. Tests are never written after the fact. Every PR must include tests written before or alongside the code.
+12. **Test coverage ≥ 60%** - `npm run test:coverage` must exit 0. Coverage threshold is enforced in `jest.config.ts` (statements, branches, functions, lines). `lib/` modules should aim for 80%+.
+13. **Lint gate** - `npm run lint` must pass with 0 errors before any commit. Fix lint errors immediately; do not suppress them with inline ignores unless unavoidable.
 
 ---
 
