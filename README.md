@@ -1,4 +1,4 @@
-# Marketplace Filha
+# Small Business Seller
 
 A simple marketplace for selling clothes, lingerie, and workout wear. Customers browse products, build a cart, and send the order via WhatsApp for the seller to close the sale manually.
 

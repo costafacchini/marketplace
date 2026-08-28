@@ -19,7 +19,7 @@
 
 ## Project Context
 
-**Project**: marketplace-filha
+**Project**: small-business-seller
 
 | Aspect | Value |
 |--------|-------|

@@ -1,8 +1,8 @@
-# Software Design Document — Marketplace Filha
+# Software Design Document — Small Business Seller
 
 **Version**: 1.0  
 **Created**: 2026-08-28  
-**Source of requirements**: [`spec.md`](../spec.md) · [`plans/marketplace-filha/spec.md`](../plans/marketplace-filha/spec.md)  
+**Source of requirements**: [`spec.md`](../spec.md) · [`plans/small-business-seller/spec.md`](../plans/small-business-seller/spec.md)  
 **Status**: Approved — authoritative reference for all implementation tasks (phases 1–5)
 
 ---
@@ -28,7 +28,7 @@
 
 ## 1. Overview
 
-Marketplace Filha is a single-seller clothing marketplace built for a Brazilian retailer. Customers browse a product catalog, build a cart, and submit orders via WhatsApp — the seller closes each sale manually. The seller manages the catalog and promotional pricing through a protected admin panel.
+Small Business Seller is a single-seller clothing marketplace built for a Brazilian retailer. Customers browse a product catalog, build a cart, and submit orders via WhatsApp — the seller closes each sale manually. The seller manages the catalog and promotional pricing through a protected admin panel.
 
 **Stakeholders**:
 - **Customer** — browses and orders via mobile browser; requires no account
@@ -354,7 +354,7 @@ interface CartStore {
 
 **Persistence**:
 - Middleware: `zustand/middleware` `persist`
-- Storage key: `marketplace-filha-cart`
+- Storage key: `small-business-seller-cart`
 - Storage: `localStorage` (browser-only; no SSR hydration needed)
 
 **Price snapshotting**: The effective price (promotional or base) is resolved server-side and passed to the client. The cart stores the price at the time of adding — if a price list expires after the customer adds an item, the cart retains the old price. This is accepted behavior for v1; the seller verifies at close of sale.
@@ -538,7 +538,7 @@ prisma generate && prisma migrate deploy && next build
 |----------|----------|-------|---------------|---------|
 | `DATABASE_URL` | Yes | Server | Railway → Connect → PostgreSQL connection string | `postgresql://user:pass@host:5432/db?connection_limit=1&pool_timeout=10` |
 | `NEXTAUTH_SECRET` | Yes | Server | `openssl rand -base64 32` | `abc123...` |
-| `NEXTAUTH_URL` | Yes | Server | Vercel deployment URL | `https://marketplace-filha.vercel.app` |
+| `NEXTAUTH_URL` | Yes | Server | Vercel deployment URL | `https://small-business-seller.vercel.app` |
 | `ADMIN_EMAIL` | Yes | Server | Set manually | `seller@example.com` |
 | `ADMIN_PASSWORD_HASH` | Yes | Server | `node -e "require('bcryptjs').hashSync('pwd', 12)"` | `$2a$12$...` |
 | `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Yes | Client | Cloudinary dashboard → Cloud Name | `my-cloud` |

@@ -5,7 +5,7 @@
 
 | Aspect | Value |
 |--------|-------|
-| Project | marketplace-filha |
+| Project | small-business-seller |
 | Languages | TypeScript |
 | Frameworks | Next.js 14 (App Router), Prisma, NextAuth.js, Zustand, shadcn/ui, Tailwind CSS |
 | Package managers | npm |
@@ -18,10 +18,10 @@
 
 ## Active Plan
 
-Plan: `marketplace-filha` — 10 tasks across 6 phases (phase-0 = SDD)
-Plan files: `.plans/marketplace-filha/`
-Spec: `.plans/marketplace-filha/spec.md`
-Overview: `.plans/marketplace-filha/overview.md`
+Plan: `small-business-seller` — 10 tasks across 6 phases (phase-0 = SDD)
+Plan files: `.plans/small-business-seller/`
+Spec: `.plans/small-business-seller/spec.md`
+Overview: `.plans/small-business-seller/overview.md`
 
 ## Key External Services
 

@@ -1,4 +1,4 @@
-# Project Overview — Marketplace Filha
+# Project Overview — Small Business Seller
 
 > **Primary reference**: [`docs/sdd.md`](../../sdd.md) — authoritative Software Design Document covering architecture, data model, API contracts, auth, state management, deployment, i18n, and testing strategy.
 
@@ -6,7 +6,7 @@
 
 | Aspect | Value |
 |--------|-------|
-| Project | marketplace-filha |
+| Project | small-business-seller |
 | Languages | TypeScript |
 | Frameworks | Next.js 14 (App Router), Prisma ORM, NextAuth.js (Credentials), Zustand, shadcn/ui, Tailwind CSS, next-intl |
 | Architecture | Route groups — `(store)` public + `(admin)` protected by NextAuth middleware |
@@ -37,7 +37,7 @@ npx prisma generate                      # Regenerate Prisma client
 - **Store front** (`app/(store)/`): Server Components fetch products + active price lists from Prisma. Price resolution (`lib/pricing.ts`) runs server-side. Filtering and sorting are client-side in `CategoryFilter` / `SortControl`.
 - **Admin panel** (`app/(admin)/`): Protected by `middleware.ts`. Product and price list CRUD via API routes with zod validation.
 - **Pricing engine** (`lib/pricing.ts`): `getActivePriceLists()` + `resolvePrice()` — single source of truth for promotional pricing. Never duplicated.
-- **Cart**: Zustand store persisted in `localStorage` under key `marketplace-filha-cart`. Price snapshotted at add-to-cart time.
+- **Cart**: Zustand store persisted in `localStorage` under key `small-business-seller-cart`. Price snapshotted at add-to-cart time.
 - **i18n**: `next-intl` with static locale from `NEXT_PUBLIC_LOCALE` env var (`en` default | `pt`). All display strings in `messages/en.json` and `messages/pt.json`.
 - **Images**: Cloudinary Upload Widget — browser-direct upload, server stores only the resulting URLs in `product.images[]`.
 - **Checkout**: WhatsApp deep link (`wa.me`) with `encodeURIComponent` message built by `lib/whatsapp.ts`.
