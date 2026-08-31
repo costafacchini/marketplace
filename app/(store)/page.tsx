@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/prisma'
 import { getActivePriceLists, resolvePrice } from '@/lib/pricing'
