@@ -7,21 +7,40 @@
     "back": "Voltar"
   },
   "store": {
-    "name": "Small Business Seller",
+    "name": "Sonho de Mulher",
+    "tagline": "Peças selecionadas com carinho",
     "navCart": "Carrinho",
+    "loadingStatus": "Carregando a vitrine…",
     "cart": {
       "title": "Meu Carrinho",
       "empty": "Seu carrinho está vazio.",
-      "backToStore": "Ver Produtos",
+      "emptyHint": "Tem muita coisa boa esperando por você.",
+      "backToStore": "Ver a vitrine",
       "remove": "Remover item",
       "qty": "Quantidade",
+      "size": "Tamanho:",
+      "decreaseQty": "Diminuir quantidade",
+      "increaseQty": "Aumentar quantidade",
       "total": "Total",
       "confirm": "Confirmar Pedido",
+      "whatsappHint": "Seu pedido vai direto para a vendedora pelo WhatsApp.",
       "modal": {
         "title": "Confirmar pedido",
-        "description": "Você será redirecionada ao WhatsApp para finalizar a compra diretamente com a vendedora.",
+        "description": "Veja o resumo abaixo e envie pelo WhatsApp para finalizar com {sellerName}.",
+        "orderPreviewLabel": "Resumo do pedido",
+        "orderTotal": "Total do pedido",
         "send": "Enviar pelo WhatsApp",
-        "back": "Voltar"
+        "back": "Voltar",
+        "sentTitle": "Pedido enviado!",
+        "sentDescription": "{sellerSubject} vai confirmar a disponibilidade e entrar em contato em breve.",
+        "close": "Fechar",
+        "blockedError": "Não foi possível abrir o WhatsApp automaticamente.",
+        "blockedFallback": "Abrir o WhatsApp manualmente →",
+        "configError": "Número de WhatsApp não configurado. Entre em contato com a vendedora diretamente.",
+        "urlTooLarge": "Seu carrinho está grande demais para enviar de uma vez. Reduza as quantidades ou divida em pedidos menores.",
+        "defaultSeller": "a vendedora",
+        "defaultSellerSubject": "A vendedora",
+        "qtyMultiplier": "×"
       }
     },
     "filter": {
@@ -29,19 +48,35 @@
       "clothes": "Roupas",
       "lingerie": "Íntimas",
       "workout": "Academia",
-      "empty": "Nenhum produto nesta categoria."
+      "empty": "Nenhum produto nesta categoria. Experimente outra categoria."
     },
     "sort": {
       "label": "Ordenar por",
       "promoFirst": "Promoções primeiro",
+      "promoFirstShort": "Promo",
       "priceAsc": "Menor preço",
-      "nameAsc": "A–Z"
+      "priceAscShort": "Preço",
+      "nameAsc": "A–Z",
+      "nameAscShort": "A–Z"
     },
     "product": {
+      "backToStore": "Ver a vitrine",
       "selectSize": "Selecione um tamanho",
       "sizeRequired": "Selecione um tamanho.",
       "addToCart": "Adicionar ao Carrinho",
-      "added": "Adicionado!"
+      "added": "Adicionado!",
+      "noSizes": "Tamanhos indisponíveis para este produto.",
+      "offLabel": "OFF",
+      "promoPrice": "Preço promocional",
+      "originalPrice": "Preço original",
+      "notFoundTitle": "Produto não encontrado",
+      "notFoundDescription": "Este produto pode não estar mais disponível.",
+      "notFoundCta": "Voltar para a vitrine"
+    },
+    "error": {
+      "title": "Ops, algo deu errado",
+      "description": "Não foi possível carregar a vitrine. Tente novamente.",
+      "retry": "Tentar novamente"
     }
   },
   "admin": {

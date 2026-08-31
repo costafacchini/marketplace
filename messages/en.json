@@ -7,21 +7,40 @@
     "back": "Back"
   },
   "store": {
-    "name": "Small Business Seller",
+    "name": "Sonho de Mulher",
+    "tagline": "Handpicked pieces, just for you",
     "navCart": "Cart",
+    "loadingStatus": "Loading the store…",
     "cart": {
       "title": "My Cart",
       "empty": "Your cart is empty.",
-      "backToStore": "Browse Products",
+      "emptyHint": "Lots of good things are waiting for you.",
+      "backToStore": "Visit the store",
       "remove": "Remove item",
       "qty": "Quantity",
+      "size": "Size:",
+      "decreaseQty": "Decrease quantity",
+      "increaseQty": "Increase quantity",
       "total": "Total",
       "confirm": "Confirm Order",
+      "whatsappHint": "Your order goes directly to the seller via WhatsApp.",
       "modal": {
         "title": "Confirm your order",
-        "description": "You will be redirected to WhatsApp to finalize your purchase directly with the seller.",
+        "description": "Review your order below and send via WhatsApp to finalize with {sellerName}.",
+        "orderPreviewLabel": "Order summary",
+        "orderTotal": "Order total",
         "send": "Send via WhatsApp",
-        "back": "Go back"
+        "back": "Go back",
+        "sentTitle": "Order sent!",
+        "sentDescription": "{sellerSubject} will confirm availability and get back to you shortly.",
+        "close": "Close",
+        "blockedError": "Could not open WhatsApp automatically.",
+        "blockedFallback": "Open WhatsApp manually →",
+        "configError": "WhatsApp number is not configured. Please contact the seller directly.",
+        "urlTooLarge": "Your cart is too large to send at once. Reduce quantities or split into smaller orders.",
+        "defaultSeller": "the seller",
+        "defaultSellerSubject": "The seller",
+        "qtyMultiplier": "×"
       }
     },
     "filter": {
@@ -29,19 +48,35 @@
       "clothes": "Clothes",
       "lingerie": "Lingerie",
       "workout": "Workout",
-      "empty": "No products in this category."
+      "empty": "No products in this category. Try a different one."
     },
     "sort": {
       "label": "Sort by",
       "promoFirst": "Promotions first",
+      "promoFirstShort": "Sale",
       "priceAsc": "Lowest price",
-      "nameAsc": "A–Z"
+      "priceAscShort": "Price",
+      "nameAsc": "A–Z",
+      "nameAscShort": "A–Z"
     },
     "product": {
+      "backToStore": "Visit the store",
       "selectSize": "Select a size",
       "sizeRequired": "Please select a size.",
       "addToCart": "Add to Cart",
-      "added": "Added!"
+      "added": "Added!",
+      "noSizes": "No sizes available for this product.",
+      "offLabel": "OFF",
+      "promoPrice": "Sale price",
+      "originalPrice": "Original price",
+      "notFoundTitle": "Product not found",
+      "notFoundDescription": "This product may no longer be available.",
+      "notFoundCta": "Back to store"
+    },
+    "error": {
+      "title": "Oops, something went wrong",
+      "description": "Could not load the store. Please try again.",
+      "retry": "Try again"
     }
   },
   "admin": {

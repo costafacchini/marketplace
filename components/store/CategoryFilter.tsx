@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { ProductGrid } from './ProductGrid'
 import { SortControl, SortOption, sortProducts } from './SortControl'
 
@@ -33,20 +33,22 @@ export function CategoryFilter({ products }: CategoryFilterProps) {
   const sorted = sortProducts(filtered, sort)
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <Tabs value={category} onValueChange={(v) => setCategory(v as CategoryFilter)}>
-          <TabsList className="flex-wrap h-auto gap-1">
-            {CATEGORIES.map((cat) => (
-              <TabsTrigger key={cat} value={cat} className="min-h-[44px]">
-                {t(cat.toLowerCase() as 'all' | 'clothes' | 'lingerie' | 'workout')}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+    <Tabs value={category} onValueChange={(v) => setCategory(v as CategoryFilter)}>
+      <div className="flex items-start gap-2 mb-4">
+        <TabsList className="min-w-0 flex-wrap h-auto gap-1">
+          {CATEGORIES.map((cat) => (
+            <TabsTrigger key={cat} value={cat} className="min-h-[44px]">
+              {t(cat.toLowerCase() as 'all' | 'clothes' | 'lingerie' | 'workout')}
+            </TabsTrigger>
+          ))}
+        </TabsList>
         <SortControl value={sort} onSort={setSort} />
       </div>
-      <ProductGrid products={sorted} />
-    </div>
+      {CATEGORIES.map((cat) => (
+        <TabsContent key={cat} value={cat} className="mt-0">
+          <ProductGrid products={sorted} />
+        </TabsContent>
+      ))}
+    </Tabs>
   )
 }

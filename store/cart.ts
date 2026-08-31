@@ -49,11 +49,19 @@ export const useCartStore = create<CartStore>()(
         }))
       },
       updateQty: (productId, size, qty) => {
-        set((state) => ({
-          items: state.items.map((i) =>
-            i.productId === productId && i.size === size ? { ...i, quantity: qty } : i
-          ),
-        }))
+        if (qty <= 0) {
+          set((state) => ({
+            items: state.items.filter(
+              (i) => !(i.productId === productId && i.size === size)
+            ),
+          }))
+        } else {
+          set((state) => ({
+            items: state.items.map((i) =>
+              i.productId === productId && i.size === size ? { ...i, quantity: qty } : i
+            ),
+          }))
+        }
       },
       clear: () => set({ items: [] }),
       total: () =>

@@ -1,4 +1,4 @@
-import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import { buildWhatsAppUrl, WHATSAPP_URL_SAFE_LENGTH } from '@/lib/whatsapp'
 
 describe('buildWhatsAppUrl', () => {
   beforeEach(() => {
@@ -50,5 +50,18 @@ describe('buildWhatsAppUrl', () => {
     ]
     const url = buildWhatsAppUrl(items)
     expect(url).toContain('?text=')
+  })
+
+  it('URL length stays within safe limit for a typical small cart', () => {
+    const items = [
+      { productId: '1', name: 'Camiseta', size: 'M', price: 50, quantity: 2, image: '' },
+      { productId: '2', name: 'Calça', size: 'G', price: 80, quantity: 1, image: '' },
+    ]
+    const url = buildWhatsAppUrl(items)
+    expect(url!.length).toBeLessThanOrEqual(WHATSAPP_URL_SAFE_LENGTH)
+  })
+
+  it('exports WHATSAPP_URL_SAFE_LENGTH as a positive number', () => {
+    expect(WHATSAPP_URL_SAFE_LENGTH).toBeGreaterThan(0)
   })
 })

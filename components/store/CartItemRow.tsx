@@ -16,10 +16,10 @@ export function CartItemRow({ item }: CartItemRowProps) {
   const updateQty = useCartStore((state) => state.updateQty)
 
   return (
-    <div className="flex gap-4 py-4 border-b last:border-b-0">
+    <div className="flex gap-4 py-4">
       <div className="relative w-16 h-16 flex-shrink-0">
         <Image
-          src={item.image || '/placeholder.png'}
+          src={item.image || '/placeholder-product.png'}
           alt={item.name}
           width={64}
           height={64}
@@ -27,36 +27,34 @@ export function CartItemRow({ item }: CartItemRowProps) {
         />
       </div>
 
-      <div className="flex flex-1 flex-col gap-1">
-        <p className="font-medium">{item.name}</p>
+      <div className="flex flex-1 flex-col gap-1 min-w-0">
+        <p className="font-medium truncate">{item.name}</p>
         <p className="text-sm text-muted-foreground">
-          {t('qty')}: {item.size}
+          {t('size')} <span className="text-foreground font-medium">{item.size}</span>
         </p>
         <p className="text-sm">{formatPrice(item.price)}</p>
 
         <div className="flex items-center gap-2 mt-1">
           <button
             type="button"
-            aria-label="-"
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center border rounded text-lg"
+            aria-label={t('decreaseQty')}
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center border rounded text-lg disabled:opacity-40"
             disabled={item.quantity <= 1}
             onClick={() => updateQty(item.productId, item.size, item.quantity - 1)}
           >
             −
           </button>
 
-          <input
-            type="number"
-            aria-label={t('qty')}
-            className="w-12 text-center border rounded h-10"
-            value={item.quantity}
-            min={1}
-            readOnly
-          />
+          <span
+            className="w-12 text-center text-sm font-medium"
+            aria-label={`${t('qty')}: ${item.quantity}`}
+          >
+            {item.quantity}
+          </span>
 
           <button
             type="button"
-            aria-label="+"
+            aria-label={t('increaseQty')}
             className="min-h-[44px] min-w-[44px] flex items-center justify-center border rounded text-lg"
             onClick={() => updateQty(item.productId, item.size, item.quantity + 1)}
           >

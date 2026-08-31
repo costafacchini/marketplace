@@ -9,12 +9,11 @@ export default async function StoreLayout({ children }: { children: React.ReactN
     <div className="min-h-screen">
       <header className="border-b bg-background sticky top-0 z-40">
         <div className="container mx-auto px-4 h-14 flex items-center justify-between">
-          <Link href="/" className="font-semibold text-lg">
+          <Link href="/" className="font-bold text-lg tracking-tight">
             {t('name')}
           </Link>
           <Link
             href="/cart"
-            aria-label={t('navCart')}
             className="flex items-center gap-1 min-h-[44px] px-2"
           >
             <CartBadge />

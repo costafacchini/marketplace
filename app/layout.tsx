@@ -1,14 +1,17 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, getTranslations } from 'next-intl/server'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Small Business Seller',
-  description: 'Shop clothes, lingerie, and workout wear',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('store')
+  return {
+    title: t('name'),
+    description: t('tagline'),
+  }
 }
 
 export default async function RootLayout({

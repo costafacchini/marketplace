@@ -96,6 +96,25 @@ describe('useCartStore — updateQty', () => {
     const p2 = items.find((i) => i.productId === 'p2')
     expect(p2?.quantity).toBe(1)
   })
+
+  it('removes the item when qty is 0', () => {
+    useCartStore.getState().addItem({ productId: 'p1', name: 'Shirt', size: 'M', price: 50, image: '' })
+
+    useCartStore.getState().updateQty('p1', 'M', 0)
+
+    expect(useCartStore.getState().items).toHaveLength(0)
+  })
+
+  it('removes the item when qty is negative', () => {
+    useCartStore.getState().addItem({ productId: 'p1', name: 'Shirt', size: 'M', price: 50, image: '' })
+    useCartStore.getState().addItem({ productId: 'p2', name: 'Pants', size: 'G', price: 80, image: '' })
+
+    useCartStore.getState().updateQty('p1', 'M', -1)
+
+    const { items } = useCartStore.getState()
+    expect(items).toHaveLength(1)
+    expect(items[0].productId).toBe('p2')
+  })
 })
 
 describe('useCartStore — clear', () => {

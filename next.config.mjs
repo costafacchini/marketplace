@@ -13,6 +13,7 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://upload-widget.cloudinary.com",
       "img-src 'self' data: https://res.cloudinary.com",
       "connect-src 'self' https://api.cloudinary.com",
+      "style-src 'self' 'unsafe-inline'",
     ].join('; '),
   },
 ]

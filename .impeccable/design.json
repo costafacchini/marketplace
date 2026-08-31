@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-31T00:00:00Z",
+  "title": "Design System: Sonho de Mulher",
+  "extensions": {
+    "colorMeta": {
+      "pure-white": {
+        "role": "neutral",
+        "displayName": "Pure White",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.25 0 0)",
+          "oklch(0.40 0 0)",
+          "oklch(0.55 0 0)",
+          "oklch(0.70 0 0)",
+          "oklch(0.82 0 0)",
+          "oklch(0.93 0 0)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "ink-black": {
+        "role": "neutral",
+        "displayName": "Ink Black",
+        "canonical": "oklch(0.145 0 0)",
+        "tonalRamp": [
+          "oklch(0.10 0 0)",
+          "oklch(0.145 0 0)",
+          "oklch(0.22 0 0)",
+          "oklch(0.35 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.65 0 0)",
+          "oklch(0.80 0 0)",
+          "oklch(0.94 0 0)"
+        ]
+      },
+      "charcoal": {
+        "role": "primary",
+        "displayName": "Charcoal",
+        "canonical": "oklch(0.205 0 0)",
+        "tonalRamp": [
+          "oklch(0.10 0 0)",
+          "oklch(0.145 0 0)",
+          "oklch(0.205 0 0)",
+          "oklch(0.30 0 0)",
+          "oklch(0.44 0 0)",
+          "oklch(0.58 0 0)",
+          "oklch(0.72 0 0)",
+          "oklch(0.87 0 0)"
+        ]
+      },
+      "off-white": {
+        "role": "neutral",
+        "displayName": "Off White",
+        "canonical": "oklch(0.985 0 0)",
+        "tonalRamp": [
+          "oklch(0.20 0 0)",
+          "oklch(0.35 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.65 0 0)",
+          "oklch(0.78 0 0)",
+          "oklch(0.88 0 0)",
+          "oklch(0.95 0 0)",
+          "oklch(0.985 0 0)"
+        ]
+      },
+      "cloud-gray": {
+        "role": "neutral",
+        "displayName": "Cloud Gray",
+        "canonical": "oklch(0.97 0 0)",
+        "tonalRamp": [
+          "oklch(0.20 0 0)",
+          "oklch(0.35 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.65 0 0)",
+          "oklch(0.78 0 0)",
+          "oklch(0.87 0 0)",
+          "oklch(0.94 0 0)",
+          "oklch(0.97 0 0)"
+        ]
+      },
+      "quiet-gray": {
+        "role": "neutral",
+        "displayName": "Quiet Gray",
+        "canonical": "oklch(0.556 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.25 0 0)",
+          "oklch(0.35 0 0)",
+          "oklch(0.46 0 0)",
+          "oklch(0.556 0 0)",
+          "oklch(0.66 0 0)",
+          "oklch(0.78 0 0)",
+          "oklch(0.90 0 0)"
+        ]
+      },
+      "petal-border": {
+        "role": "neutral",
+        "displayName": "Petal Border",
+        "canonical": "oklch(0.922 0 0)",
+        "tonalRamp": [
+          "oklch(0.25 0 0)",
+          "oklch(0.40 0 0)",
+          "oklch(0.55 0 0)",
+          "oklch(0.68 0 0)",
+          "oklch(0.78 0 0)",
+          "oklch(0.87 0 0)",
+          "oklch(0.922 0 0)",
+          "oklch(0.97 0 0)"
+        ]
+      },
+      "focus-ring": {
+        "role": "neutral",
+        "displayName": "Focus Ring",
+        "canonical": "oklch(0.708 0 0)",
+        "tonalRamp": [
+          "oklch(0.20 0 0)",
+          "oklch(0.32 0 0)",
+          "oklch(0.46 0 0)",
+          "oklch(0.58 0 0)",
+          "oklch(0.708 0 0)",
+          "oklch(0.80 0 0)",
+          "oklch(0.90 0 0)",
+          "oklch(0.97 0 0)"
+        ]
+      },
+      "deal-red": {
+        "role": "secondary",
+        "displayName": "Deal Red",
+        "canonical": "oklch(0.577 0.245 27.325)",
+        "tonalRamp": [
+          "oklch(0.25 0.18 27)",
+          "oklch(0.35 0.21 27)",
+          "oklch(0.45 0.24 27)",
+          "oklch(0.577 0.245 27)",
+          "oklch(0.65 0.22 27)",
+          "oklch(0.73 0.18 27)",
+          "oklch(0.83 0.12 27)",
+          "oklch(0.93 0.05 27)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Product name on detail pages. One per screen."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headers, cart totals, admin page titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Product names in grid, descriptions, form fields. Primary reading size."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Discount badge text, secondary annotations, metadata."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-hover",
+        "value": "0 4px 6px -1px oklch(0 0 0 / 10%), 0 2px 4px -2px oklch(0 0 0 / 10%)",
+        "purpose": "Applied to product cards on hover. Signals interactivity. Never at rest."
+      },
+      {
+        "name": "card-ring",
+        "value": "0 0 0 1px oklch(0.145 0 0 / 10%)",
+        "purpose": "Resting card outline. Subtle structural separator replacing a visible border."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px oklch(0.708 0 0 / 50%)",
+        "purpose": "Keyboard focus indicator on buttons and inputs."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default easing for color and shadow state transitions."
+      },
+      {
+        "name": "duration-fast",
+        "value": "150ms",
+        "purpose": "Button color transitions, input border transitions."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px", "purpose": "Product grid: 2 → 3 columns" },
+      { "name": "lg", "value": "1024px", "purpose": "Product grid: 3 → 4 columns" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default CTA — add to cart, confirm order, admin submit.",
+      "html": "<button class=\"ds-btn-primary\">Adicionar ao Carrinho</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 10px; background: oklch(0.205 0 0); color: oklch(0.985 0 0); font-size: 0.875rem; font-weight: 500; line-height: 1; white-space: nowrap; border: 1px solid transparent; border-radius: 10px; cursor: pointer; transition: background 150ms cubic-bezier(0.4,0,0.2,1), box-shadow 150ms cubic-bezier(0.4,0,0.2,1); outline: none; } .ds-btn-primary:hover { background: oklch(0.205 0 0 / 80%); } .ds-btn-primary:focus-visible { border-color: oklch(0.708 0 0); box-shadow: 0 0 0 3px oklch(0.708 0 0 / 50%); } .ds-btn-primary:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Non-primary actions — cancel, back, secondary admin tasks.",
+      "html": "<button class=\"ds-btn-secondary\">Cancelar</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 10px; background: oklch(0.97 0 0); color: oklch(0.205 0 0); font-size: 0.875rem; font-weight: 500; border: 1px solid transparent; border-radius: 10px; cursor: pointer; transition: background 150ms cubic-bezier(0.4,0,0.2,1); outline: none; } .ds-btn-secondary:hover { background: color-mix(in oklch, oklch(0.97 0 0), oklch(0.145 0 0) 5%); } .ds-btn-secondary:focus-visible { border-color: oklch(0.708 0 0); box-shadow: 0 0 0 3px oklch(0.708 0 0 / 50%); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Tertiary actions, icon buttons, nav-level controls.",
+      "html": "<button class=\"ds-btn-ghost\">Ver mais</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 10px; background: transparent; color: oklch(0.145 0 0); font-size: 0.875rem; font-weight: 500; border: 1px solid transparent; border-radius: 10px; cursor: pointer; transition: background 150ms cubic-bezier(0.4,0,0.2,1); outline: none; } .ds-btn-ghost:hover { background: oklch(0.97 0 0); } .ds-btn-ghost:focus-visible { border-color: oklch(0.708 0 0); box-shadow: 0 0 0 3px oklch(0.708 0 0 / 50%); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": null,
+      "description": "Standard form field — product name, price, admin forms.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Nome do produto\" />",
+      "css": ".ds-input { display: block; width: 100%; height: 32px; padding: 4px 10px; background: transparent; color: oklch(0.145 0 0); font-size: 0.875rem; border: 1px solid oklch(0.922 0 0); border-radius: 10px; outline: none; transition: border-color 150ms cubic-bezier(0.4,0,0.2,1), box-shadow 150ms cubic-bezier(0.4,0,0.2,1); } .ds-input::placeholder { color: oklch(0.556 0 0); } .ds-input:focus-visible { border-color: oklch(0.708 0 0); box-shadow: 0 0 0 3px oklch(0.708 0 0 / 50%); } .ds-input[aria-invalid='true'] { border-color: oklch(0.577 0.245 27.325); box-shadow: 0 0 0 3px oklch(0.577 0.245 27.325 / 20%); } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; background: oklch(0.922 0 0 / 50%); }"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": null,
+      "description": "Image-first product tile used in the storefront grid.",
+      "html": "<div class=\"ds-product-card\"><div class=\"ds-product-card-image\"><span class=\"ds-deal-badge\">30% OFF</span></div><div class=\"ds-product-card-body\"><p class=\"ds-product-card-name\">Blusa Floral Manga Longa</p><div class=\"ds-product-card-price\"><span class=\"ds-price-promo\">R$&nbsp;49,90</span><span class=\"ds-price-original\">R$&nbsp;69,90</span></div></div></div>",
+      "css": ".ds-product-card { display: flex; flex-direction: column; overflow: hidden; border-radius: 12px; background: oklch(1 0 0); box-shadow: 0 0 0 1px oklch(0.145 0 0 / 10%); font-size: 0.875rem; color: oklch(0.145 0 0); transition: box-shadow 150ms cubic-bezier(0.4,0,0.2,1); } .ds-product-card:hover { box-shadow: 0 4px 6px -1px oklch(0 0 0 / 10%), 0 2px 4px -2px oklch(0 0 0 / 10%); } .ds-product-card-image { position: relative; aspect-ratio: 1/1; background: oklch(0.97 0 0); overflow: hidden; } .ds-deal-badge { position: absolute; top: 8px; left: 8px; background: oklch(0.577 0.245 27.325); color: oklch(1 0 0); font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 9999px; z-index: 10; } .ds-product-card-body { padding: 4px 8px 12px; } .ds-product-card-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 4px; } .ds-product-card-price { display: flex; flex-direction: column; margin-top: 4px; } .ds-price-promo { font-weight: 700; color: oklch(0.577 0.245 27.325); } .ds-price-original { text-decoration: line-through; color: oklch(0.556 0 0); } "
+    },
+    {
+      "name": "Size Picker Button",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Garment size selector on product detail page. Selected state mirrors primary button.",
+      "html": "<div class=\"ds-size-picker\"><button class=\"ds-size-btn\">M</button><button class=\"ds-size-btn ds-size-btn--selected\">G</button><button class=\"ds-size-btn\">GG</button></div>",
+      "css": ".ds-size-picker { display: flex; flex-wrap: wrap; gap: 8px; } .ds-size-btn { min-height: 44px; min-width: 44px; padding: 0 12px; background: oklch(1 0 0); color: oklch(0.145 0 0); font-size: 0.875rem; font-weight: 500; border: 1px solid oklch(0.922 0 0); border-radius: 10px; cursor: pointer; transition: border-color 150ms cubic-bezier(0.4,0,0.2,1), background 150ms cubic-bezier(0.4,0,0.2,1), color 150ms cubic-bezier(0.4,0,0.2,1); } .ds-size-btn:hover { border-color: oklch(0.205 0 0); } .ds-size-btn--selected { background: oklch(0.205 0 0); color: oklch(0.985 0 0); border-color: oklch(0.205 0 0); }"
+    },
+    {
+      "name": "Deal Badge",
+      "kind": "custom",
+      "refersTo": "deal-badge",
+      "description": "Discount percentage marker overlaid on product card images. The only chromatic element in the store UI.",
+      "html": "<span class=\"ds-deal-badge-standalone\">25% OFF</span>",
+      "css": ".ds-deal-badge-standalone { display: inline-flex; align-items: center; justify-content: center; background: oklch(0.577 0.245 27.325); color: oklch(1 0 0); font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 9999px; white-space: nowrap; }"
+    },
+    {
+      "name": "Store Header",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Sticky storefront navigation: brand name left, cart link right.",
+      "html": "<header class=\"ds-store-header\"><div class=\"ds-store-header-inner\"><a class=\"ds-store-name\" href=\"/\">Sonho de Mulher</a><a class=\"ds-cart-link\" href=\"/cart\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"9\" cy=\"21\" r=\"1\"/><circle cx=\"20\" cy=\"21\" r=\"1\"/><path d=\"M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6\"/></svg><span>Carrinho</span></a></div></header>",
+      "css": ".ds-store-header { position: sticky; top: 0; z-index: 40; background: oklch(1 0 0); border-bottom: 1px solid oklch(0.922 0 0); } .ds-store-header-inner { max-width: 1280px; margin: 0 auto; padding: 0 16px; height: 56px; display: flex; align-items: center; justify-content: space-between; } .ds-store-name { font-size: 1.125rem; font-weight: 600; color: oklch(0.145 0 0); text-decoration: none; } .ds-cart-link { display: flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 8px; color: oklch(0.145 0 0); text-decoration: none; font-size: 0.875rem; } .ds-cart-link:hover { color: oklch(0.205 0 0); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Vitrine da Amiga",
+    "overview": "Sonho de Mulher is a personal storefront — not a marketplace, not an app. The design reflects the warmth of a friend showing you what she loves. The visual system keeps itself out of the way so product photography does the work: a clean white canvas, near-black type, and a single accent color that appears only when there is a deal to announce. Everything else is quiet, confident, and fast to scan on a phone.\n\nDensity is deliberately low. Generous touch targets (minimum 44px), a two-column grid on mobile, and short copy keep the experience light. The seller's personality comes through in the WhatsApp message, not in a noisy interface. On admin screens the same principles apply — calm, functional, no decoration that isn't earning its place.\n\nThe one exception to restraint is the deal signal: deal-red appears on promotional badges and prices, and nowhere else. Its rarity is the message.",
+    "keyCharacteristics": [
+      "Achromatic palette with one warm-red exception, used exclusively for deal signals",
+      "System sans-serif at comfortable reading sizes; no display type",
+      "Flat-by-default surfaces; shadow appears only on card hover",
+      "Minimum 44px tap targets on all interactive elements",
+      "Product image is always the first visual element in a card"
+    ],
+    "rules": [
+      {
+        "name": "The Deal Signal Rule",
+        "body": "deal-red appears on two elements only: the discount percentage badge on a product image, and the promotional price text. If a design places this color anywhere else, it is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Rarity Rule",
+        "body": "Because charcoal is the primary interactive color and deal-red is the only accent, no third color may be introduced without a product decision. The palette's restraint is structural.",
+        "section": "colors"
+      },
+      {
+        "name": "The Single Headline Rule",
+        "body": "Each screen has at most one Headline-weight element. Product list cards use Body weight for names; the product detail page uses Headline for the product name only.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-by-Default Rule",
+        "body": "Shadows are a hover-state reward, not a resting decoration. A card at rest uses only its ring outline. Dialogs and modals are the sole exception — they use an overlay, not elevation.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Pill Reserve",
+        "body": "Pill-shaped elements are deal badges and nothing else in the store UI. Admin chip-style elements may use pill shape, but they must never use deal-red.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do use deal-red exclusively for promotional prices and discount badges. Its scarcity is the signal.",
+      "Do keep all interactive elements at 44px minimum height — this is a product requirement, not an accessibility nice-to-have.",
+      "Do let product images occupy the top of every card without padding or overlay (except the deal badge).",
+      "Do use quiet-gray for supporting text that should recede: descriptions, struck-through prices, empty states.",
+      "Do use the two-column mobile grid as the default; the jump to three columns at sm is meaningful."
+    ],
+    "donts": [
+      "Don't use deal-red on buttons, links, tab highlights, or any element that isn't explicitly a price or discount marker.",
+      "Don't add a third chromatic color without a product decision. The achromatic palette is intentional.",
+      "Don't use shadows at rest. ring-1 ring-foreground/10 is the resting card treatment; shadow is reserved for hover.",
+      "Don't introduce display or decorative typography. The system inherits the device font; that informality is on-brand.",
+      "Don't shrink tap targets below 44px on any interactive element that appears in the store UI."
+    ]
+  }
+}

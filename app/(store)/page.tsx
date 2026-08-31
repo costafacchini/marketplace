@@ -1,8 +1,10 @@
+import { getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/prisma'
 import { getActivePriceLists, resolvePrice } from '@/lib/pricing'
 import { CategoryFilter } from '@/components/store/CategoryFilter'
 
 export default async function VitrinePage() {
+  const t = await getTranslations('store')
   const [products, activeLists] = await Promise.all([
     prisma.product.findMany({
       where: { active: true },
@@ -26,6 +28,10 @@ export default async function VitrinePage() {
 
   return (
     <main className="container mx-auto px-4 py-6">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold tracking-tight">{t('name')}</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">{t('tagline')}</p>
+      </div>
       <CategoryFilter products={serialized} />
     </main>
   )

@@ -20,9 +20,12 @@ export function CartSummary() {
         <span>{formatPrice(total())}</span>
       </div>
 
-      <Button className="w-full" onClick={() => setOpen(true)}>
+      <Button className="w-full min-h-[44px]" onClick={() => setOpen(true)}>
         {t('confirm')}
       </Button>
+      <p className="mt-2 text-xs text-center text-muted-foreground">
+        {t('whatsappHint')}
+      </p>
 
       <ConfirmModal open={open} onClose={() => setOpen(false)} items={items} />
     </div>
