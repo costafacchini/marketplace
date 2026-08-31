@@ -71,9 +71,9 @@ describe('ImageGallery', () => {
     expect(buttons[1].className).toContain('border-primary')
   })
 
-  it('falls back to /placeholder.png when images array is empty', () => {
+  it('falls back to /placeholder-product.png when images array is empty', () => {
     render(<ImageGallery images={[]} name="No Image Product" />)
     const img = screen.getByAltText('No Image Product')
-    expect(img).toHaveAttribute('src', '/placeholder.png')
+    expect(img).toHaveAttribute('src', '/placeholder-product.png')
   })
 })

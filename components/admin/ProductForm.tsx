@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import { CloudinaryWidget } from '@/components/admin/CloudinaryWidget'
+import { ImageUploadWidget } from '@/components/admin/ImageUploadWidget'
 import { ImagePreview } from '@/components/admin/ImagePreview'
 import { productCreateSchema, type ProductFormValues } from '@/lib/validations/product'
 
@@ -193,7 +193,7 @@ export function ProductForm({ initialData }: Props) {
       {/* Images */}
       <div className="space-y-2">
         <Label>{t('images')}</Label>
-        <CloudinaryWidget onUpload={handleUpload} />
+        <ImageUploadWidget onUpload={handleUpload} />
         <ImagePreview images={images} onRemove={removeImage} />
         {form.formState.errors.images && (
           <p className="text-sm text-destructive">{form.formState.errors.images.message}</p>

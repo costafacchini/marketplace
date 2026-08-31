@@ -102,6 +102,7 @@
         "images": "Photos",
         "active": "Active",
         "addPhotos": "Add Photos",
+        "uploading": "Uploading...",
         "imageAlt": "Product photo {index}",
         "removeImage": "Remove photo",
         "submit": "Save Product",
