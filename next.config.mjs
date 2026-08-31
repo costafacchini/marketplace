@@ -11,6 +11,7 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://upload-widget.cloudinary.com",
+      "frame-src https://upload-widget.cloudinary.com",
       "img-src 'self' data: https://res.cloudinary.com http://localhost:9000",
       "connect-src 'self' https://api.cloudinary.com http://localhost:9000",
       "style-src 'self' 'unsafe-inline'",
