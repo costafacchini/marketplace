@@ -34,10 +34,10 @@ export function CategoryFilter({ products }: CategoryFilterProps) {
 
   return (
     <Tabs value={category} onValueChange={(v) => setCategory(v as CategoryFilter)}>
-      <div className="flex items-start gap-2 mb-4">
-        <TabsList className="min-w-0 flex-wrap h-auto gap-1">
+      <div className="flex items-center gap-2 mb-4">
+        <TabsList className="flex-1 h-auto gap-1">
           {CATEGORIES.map((cat) => (
-            <TabsTrigger key={cat} value={cat} className="min-h-[44px]">
+            <TabsTrigger key={cat} value={cat} className="flex-1 min-h-[44px]">
               {t(cat.toLowerCase() as 'all' | 'clothes' | 'lingerie' | 'workout')}
             </TabsTrigger>
           ))}
